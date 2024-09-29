@@ -1,16 +1,22 @@
 const express = require("express");
 const router = require("express").Router();
-const cors = require("cors")
-const { MongoClient } = require("mongodb");
+const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
+const { MongoClient } = require("mongodb");
+const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}/?retryWrites=true&w=majority&appName=My-learning-plan`;
+const client = new MongoClient(dbUrl);
+const mongoose = require("mongoose");
+mongoose.connect(dbUrl).then(()=>{
+    console.log("Connecting DB...");
+}).catch((err) =>{
+    console.log(err)
+})
 const app = express();
-const port = process.env.PORT || "5173";
+const port = process.env.PORT || "8888";
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}?retryWrites=true&w=majority&appName=Portfolio`;
-const client = new MongoClient(dbUrl);
 
 
 app.use(express.urlencoded({ extended: true}));
@@ -40,7 +46,7 @@ async function connection() {
 
 async function getloginInfo(){
     db = await connection();
-    const results = db.collection("loginInfo").find({});
+    const results = db.collection("userInfo").find({});
     const res = await results.toArray();
     return res;
 }
