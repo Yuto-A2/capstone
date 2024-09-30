@@ -32,7 +32,22 @@ const UserSchema = new mongoose.Schema({
         type: String,
         max: 70,
     },
+    totalStudyTime: {
+        type: Number,  
+        default: 0,
+    },
+    studiedSubjects: {
+        type: [String],  
+    },
+    categories: {
+        type: [String],  
+    },
+    weeklyGoalTime: {
+        type: Number,  
+        default: 0,
+    },
 },
 { timestamps: true }
 );
+
 module.exports = mongoose.model("User", UserSchema);

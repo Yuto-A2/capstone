@@ -12,12 +12,9 @@ mongoose.connect(dbUrl).then(()=>{
 }).catch((err) =>{
     console.log(err)
 })
+
 const app = express();
 const port = process.env.PORT || "8888";
-const userRoute = require("./routes/users");
-const authRoute = require("./routes/auth");
-const postRoute = require("./routes/posts");
-
 
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
@@ -26,17 +23,13 @@ app.use(cors({
     origin: "*"
 }));
 
-app.use("/api/users", userRoute);
-app.use("/api/auth", authRoute);
-app.use("/api/posts", postRoute);
+
+// api/login 
+// get user's information
 app.get("/api/login", async (request, response) => {
     let login = await getloginInfo();
     response.json(login);
 })
-
-app.listen(port, () => {
-    console.log(`Listening on http://localhost:${port}`);
-});
 
 async function connection() {
     await client.connect();
@@ -51,8 +44,37 @@ async function getloginInfo(){
     return res;
 }
 
+//user's information add
+app.get("/api/menu/add", async (request, response) => {
+    let links = await getloginInfo();
+    response.render("set-your-goal", { title: "Add menu link", menu: links })
+});
+app.post("/api/setGoal/add/submit", async (request, response) => {
+    let desc = request.body.weight; 
+    let totalStudyTime = request.body.path;  
+    let studiedSubjects = request.body.name; 
+    let categories = request.body.path;  
+    let weeklyGoalTime = request.body.name; 
+    await addStudy(newStudy);
+    response.redirect("/");
+})
+
+async function addStudy(newStudy) {
+    db = await connection();
+    var status = await db.collection("userInfo").insertOne(newStudy);
+    console.log("study added");
+}
+
 getloginInfo().then(data => {
     console.log(data);  
 }).catch(error => {
     console.error("Error fetching login info:", error);
 });
+
+app.listen(port, () => {
+    console.log(`Listening on http://localhost:${port}`);
+});
+
+
+
+
