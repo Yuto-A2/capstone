@@ -71,13 +71,13 @@ app.get("/:id", async (req, res) => {
     try {
         const user = await getSingleLink(req.params.id);
         if (!user) {
-            return res.status(404).json({ error: "ユーザーが見つかりません" });
+            return res.status(404).json({ error: "cannot find a user." });
         }
         const { password, ...other } = user;
         res.status(200).json(other);
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ error: "ユーザー情報の取得に失敗しました" });
+        return res.status(500).json({ error: "failed to get user's info." });
     }
 });
 
