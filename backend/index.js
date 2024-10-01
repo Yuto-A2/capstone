@@ -3,7 +3,7 @@ const router = require("express").Router();
 const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}/?retryWrites=true&w=majority&appName=My-learning-plan`;
 const client = new MongoClient(dbUrl);
 const mongoose = require("mongoose");
@@ -64,6 +64,19 @@ async function addStudy(newStudy) {
     var status = await db.collection("userInfo").insertOne(newStudy);
     console.log("study added");
 }
+
+// get each user's informain
+app.get("/api/login/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to get user's information" });
+    }
+});
+
+
+
 
 getloginInfo().then(data => {
     console.log(data);  
