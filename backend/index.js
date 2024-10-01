@@ -66,17 +66,27 @@ async function addStudy(newStudy) {
 }
 
 // get each user's informain
-app.get("/api/login/:id", async (req, res) => {
+
+app.get("/:id", async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        res.status(200).json(user);
+        const user = await getSingleLink(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: "ユーザーが見つかりません" });
+        }
+        const { password, ...other } = user;
+        res.status(200).json(other);
     } catch (err) {
-        res.status(500).json({ error: "Failed to get user's information" });
+        console.error(err);
+        return res.status(500).json({ error: "ユーザー情報の取得に失敗しました" });
     }
 });
 
-
-
+async function getSingleLink(id) {
+    const db = await connection();
+    const editId = { _id: new ObjectId(id) };
+    const result = await db.collection("userInfo").findOne(editId);
+    return result;
+}
 
 getloginInfo().then(data => {
     console.log(data);  
