@@ -1,7 +1,7 @@
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Home from "./pages/Home"
-// import About from "./pages/About"
+import SignUp from "./pages/SignUp"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 function App() {
   //comments out here don't need curly brackets because this is just regular JS out here (JSX is in the return statement)
@@ -13,7 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/about" element={<About />} /> */}
+        <Route path="/SignUp" element={<SignUp />} />
       </Routes>
       <Footer />
     </BrowserRouter>
