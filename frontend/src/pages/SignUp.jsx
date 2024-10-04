@@ -3,13 +3,13 @@ import "../components/Home.css"
 import UserNameInput from "../components/UserNameInput"
 import PasswordInput from "../components/PasswordInput"
 import LoginBtn from "../components/LoginBtn"
-import SignupBtn from "../components/SignupBtn"
 import EmailInput from "../components/EmailInput"
 import ConfirmPsw from "../components/ConfirmPsw"
+import CreateAccount from "../components/CreateAccount"
 // homepage get components
 export default function Signup() {
   useEffect(() => {
-    document.title = "SignUp | Yuto-A"
+    document.title = "SignUp | J-Goal"
   }, []);
   return(
     <main id="main">
@@ -18,7 +18,7 @@ export default function Signup() {
       <PasswordInput />
       <ConfirmPsw />
       <LoginBtn />
-      <SignupBtn />
+      <CreateAccount />
     </main>
   )
 }

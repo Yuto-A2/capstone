@@ -7,7 +7,7 @@ import SignupBtn from "../components/SignupBtn"
 // homepage get components
 export default function Home() {
   useEffect(() => {
-    document.title = "Home | Yuto-A"
+    document.title = "Home | J-Goal"
   }, []);
   return(
     <main id="main">
