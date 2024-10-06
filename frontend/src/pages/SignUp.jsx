@@ -13,12 +13,14 @@ export default function Signup() {
   }, []);
   return(
     <main id="main">
+      <div className="inputContainer">
       <UserNameInput />
       <EmailInput />
       <PasswordInput />
       <ConfirmPsw />
       <LoginBtn />
       <CreateAccount />
+      </div>
     </main>
   )
 }

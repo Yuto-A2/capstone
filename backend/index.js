@@ -10,9 +10,9 @@ const { MongoClient, ObjectId } = require("mongodb");
 const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}/?retryWrites=true&w=majority&appName=My-learning-plan`;
 const client = new MongoClient(dbUrl);
 const mongoose = require("mongoose");
-mongoose.connect(dbUrl).then(()=>{
+mongoose.connect(dbUrl).then(() => {
     console.log("Connecting DB...");
-}).catch((err) =>{
+}).catch((err) => {
     console.log(err)
 })
 // setting of port 
@@ -21,7 +21,7 @@ const port = process.env.PORT || "8888";
 app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`);
 });
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
     origin: "*"
@@ -41,7 +41,7 @@ async function connection() {
     return db;
 }
 
-async function getloginInfo(){
+async function getloginInfo() {
     db = await connection();
     const results = db.collection("userInfo").find({});
     const res = await results.toArray();
@@ -61,7 +61,7 @@ async function connection() {
     return db;
 }
 
-async function getGoalInfo(){
+async function getGoalInfo() {
     db = await connection();
     const results = db.collection("StudyGoal").find({});
     const res = await results.toArray();
@@ -76,14 +76,14 @@ app.get("/api/menu/add", async (request, response) => {
 app.post("/api/setGoal/add/submit", async (request, response) => {
     let userId = request.body.userId;
     let profilePicture = request.body.profilePicture;
-    let desc = request.body.desc; 
-    let totalStudyTime = request.body.todalStudyTime;  
-    let studiedSubjects = request.body.studiedSubjects; 
-    let categories = request.body.categories;  
-    let weeklyGoalTime = request.body.weeklyGoalTime; 
+    let desc = request.body.desc;
+    let totalStudyTime = request.body.todalStudyTime;
+    let studiedSubjects = request.body.studiedSubjects;
+    let categories = request.body.categories;
+    let weeklyGoalTime = request.body.weeklyGoalTime;
     let setGoalsa = {
         userId: userId,
-        profilePicture: profilePicture ,
+        profilePicture: profilePicture,
         desc: desc,
         todalStudyTime: totalStudyTime,
         studiedSubjects: studiedSubjects,
@@ -122,8 +122,34 @@ async function getSingleLink(id) {
     return result;
 }
 
+//Add user's information to signup
+app.get("/api/signup/add", async (request, response) => {
+    let links = await getloginInfo();
+    response.render("set-your-goal", { title: "Add menu link", menu: links })
+});
+app.post("/api/signup/add/submit", async (request, response) => {
+    let userId = request.body.userId;
+    let userName = request.body.userName;
+    let email = request.body.email;
+    let password = request.body.password;
+    let signup = {
+        userId: userId,
+        userName: userName,
+        email: email,
+        password: password,
+    }
+    await addStudy(signup);
+    response.redirect("YourProgress/:id");
+})
+
+async function addStudy(newStudy) {
+    db = await connection();
+    var status = await db.collection("StudyGoal").insertOne(newStudy);
+    console.log("study added");
+}
+
 getloginInfo().then(data => {
-    console.log(data);  
+    console.log(data);
 }).catch(error => {
     console.error("Error fetching login info:", error);
 });
