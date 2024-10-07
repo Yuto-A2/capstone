@@ -1,0 +1,15 @@
+.createButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #9ff690;
+    border-radius: 20px;
+    margin-top: 10px;
+    transition: background 0.8s, color 1.5s;
+    width: 250px;
+}
+
+.createButton:hover {
+    cursor: pointer;
+    background: pink;
+}

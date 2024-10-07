@@ -1,0 +1,49 @@
+/* header2 */
+.header2, p {
+    text-align: center;
+}
+
+/* input box */
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loginButton {
+    display: flex;
+    justify-content: center;
+    background: #9ff690;
+    border-radius: 20px;
+    margin-top: 10px;
+    transition: background 0.8s, color 1.5s;
+    width: 150px;
+    margin-left: 25px;
+}
+
+.loginButton:hover {
+    cursor: pointer;
+    background: pink;
+}
+
+.signupButton {
+    display: flex;
+    justify-content: center;
+    background: #eecafe;
+    border-radius: 20px;
+    margin-top: 10px;
+    transition: background 0.8s, color 1.5s;
+    width: 150px;
+    margin-left: 25px;
+}
+
+.signupButton:hover {
+    cursor: pointer;
+    background: pink;
+}
