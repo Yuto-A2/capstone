@@ -1,0 +1,21 @@
+.trackGoalContainer, .trackStudyContainer, .setCategoryContainer, .trackStudyHourContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn {
+    display: flex;
+    justify-content: center;
+    background: #9ff690;
+    border-radius: 20px;
+    margin-top: 10px;
+    transition: background 0.8s, color 1.5s;
+    width: 150px;
+    margin-left: 25px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background: pink;
+}

@@ -1,0 +1,75 @@
+.learningHour {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.learningtime {
+    font-weight: bold;
+}
+
+.studyHourTable {
+    margin: auto;
+    border: solid 1px black;
+    width: 600px;
+}
+
+table , td, th {
+    border: solid 1px #595959;
+    border-collapse: collapse;
+    }
+table {
+    margin-left: 20px;
+}
+td, th {
+    padding: 10px;
+    width: 600px;
+    }
+
+    .categoryText {
+        font-weight: bold;
+    }
+
+#studyCategory {
+    width: 100px;
+    height: 50px;
+    background-color: white;
+}
+
+.categoryList {
+    text-align: center;
+}
+
+.options {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.studyThisWeekContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    margin: 50px;
+}
+
+.studyThisWeekItems {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black; 
+    padding: 20px;
+    text-align: center;
+    width: 250px; 
+    height: 150px; 
+}
+
+.studiedDate {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.studyText {
+    font-size: 16px;
+}

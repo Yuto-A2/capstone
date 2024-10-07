@@ -69,3 +69,20 @@ input {
     border: solid 2px #98DAFA;
     margin-bottom: 20px
 }
+
+#titleBox {
+    display: flex;
+}
+
+.loginUser {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.loginImg {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
