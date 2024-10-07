@@ -3,6 +3,8 @@ import Footer from "./components/Footer"
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import YourProgress from "./components/YourProgress"
+import SetYourPlan from "./components/SetYourPlan"
 function App() {
   //comments out here don't need curly brackets because this is just regular JS out here (JSX is in the return statement)
   return (
@@ -14,6 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/YourProgress" element={<YourProgress />} />
+        <Route path="/SetYourPlan" element={<SetYourPlan />} />
       </Routes>
       <Footer />
     </BrowserRouter>

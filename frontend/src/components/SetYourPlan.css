@@ -1,0 +1,70 @@
+.setGoalWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.setGoalForm {
+    width: 315px;
+    height: 90px;
+}
+
+.setCategoriesWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.setCategoryForm {
+    width: 315px;
+    height: 90px;
+}
+
+.setTimeWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.setTimeForm {
+    width: 315px;
+    height: 90px;
+}
+
+.setHomeworkTitleWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.setHomeworkTitleForm {
+    width: 315px;
+    height: 90px;
+}
+
+.setHomeworkDscWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.HomeworkDscForm {
+    width: 315px;
+    height: 90px;
+}
+
+.setHomeworkDscContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn{
+    width: 150px;
+    margin-top: 15px;
+}

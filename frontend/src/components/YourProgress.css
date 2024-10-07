@@ -1,0 +1,77 @@
+/* user name */
+.userContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.userImg {
+    width: 65px;
+    height: 54px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.userName {
+    font-weight: bold;
+}
+
+/* study hour box */
+.totalStudied {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    height: 200px;
+    border: solid 1px #98DAFA;
+    background-color: #98DAFA;
+}
+
+.progressContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.requiredText {
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.studyText {
+    margin-bottom: 3px;
+}
+
+/* JLPT study hours */
+.jlptRequired {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    height: 200px;
+    border: solid 1px #BAF9C1;
+    background-color: #BAF9C1;
+    margin-top: 30px;
+}
+
+/* Goal of the week */
+.goalOfWeek {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    height: 200px;
+    border: solid 1px #d9a6ef;
+    background-color: #d9a6ef;
+    margin-top: 30px;
+}
+
+/* Homework of the week */
+.homeworkOfWeek {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    height: 200px;
+    border: solid 1px #F9DDBA;
+    background-color: #F9DDBA;
+    margin-top: 30px;
+}
