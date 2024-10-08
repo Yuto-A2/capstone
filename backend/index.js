@@ -69,34 +69,28 @@ async function getGoalInfo() {
 }
 
 //user's information add
-app.get("/api/menu/add", async (request, response) => {
+app.get("/api/users/add", async (request, response) => {
     let links = await getloginInfo();
-    response.render("set-your-goal", { title: "Add menu link", menu: links })
+    response.render("YourProgress", { title: "Add menu link", menu: links })
 });
-app.post("/api/setGoal/add/submit", async (request, response) => {
+app.post("/api/users/add/submit", async (request, response) => {
     let userId = request.body.userId;
-    let profilePicture = request.body.profilePicture;
-    let desc = request.body.desc;
-    let totalStudyTime = request.body.todalStudyTime;
-    let studiedSubjects = request.body.studiedSubjects;
-    let categories = request.body.categories;
-    let weeklyGoalTime = request.body.weeklyGoalTime;
-    let setGoalsa = {
+    let userName = request.body.userName;
+    let email = request.body.email;
+    let password = request.body.password;
+    let setUsers = {
         userId: userId,
-        profilePicture: profilePicture,
-        desc: desc,
-        todalStudyTime: totalStudyTime,
-        studiedSubjects: studiedSubjects,
-        categories: categories,
-        weeklyGoalTime: weeklyGoalTime
+        userName: userName,
+        email: email,
+        password: password
     }
-    await addStudy(setGoalsa);
+    await addUser(setUsers);
     response.redirect("/");
 })
 
-async function addStudy(newStudy) {
+async function addUser(userInfo) {
     db = await connection();
-    var status = await db.collection("StudyGoal").insertOne(newStudy);
+    var status = await db.collection("userInfo").insertOne(userInfo);
     console.log("study added");
 }
 

@@ -1,26 +1,27 @@
 import { useState, useEffect } from "react";
 import "../components/YourProgress.css";
-import { Users } from "../pages/dummyData";
+// import { Users } from "../pages/dummyData";
 import { StudyGoal } from "../pages/dummyData";
-
+import { useParams } from 'react-router-dom';
 export default function YourProgress() {
-  const [userInfo, YourProgress] = useState([]);
+  const {id} = useParams();
+  const [userInfo, setUserInfo] = useState([]);
   // this rought get user's information from the database
   useEffect(() => {
     const getloginInfo = async () => {
-      let response = await fetch("http://localhost:8888//:id");
+      let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
       let data = await response.json();
       console.log(data);
-      YourProgress(data);
+      setUserInfo(data);
     }
     getloginInfo();
-  }, []);
+  }, [id]);
   // show user's goal and achievement
   return (
     <>
       <div className="userContainer">
-        <img src={Users[0].profilePicture} alt="" className="userImg" />
-        <span className="userName">{Users[0].username}</span>
+        <img src={StudyGoal[0].profilePicture} alt="" className="userImg" />
+        <span className="userName">{userInfo.userName}</span>
       </div>
       <p className="studyHour">You’ve spent {StudyGoal[0].totalStudyTime} hours for learning Japanese.</p>
       <div className="progressContainer">
