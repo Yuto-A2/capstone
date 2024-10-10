@@ -1,4 +1,3 @@
-import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
@@ -14,7 +13,7 @@ function App() {
       {/* empty tags like above and below define a fragment to allow you to have a root element which doesn't render to an actual element when compiling */}
       {/* anything in the return() statement is JSX so write your comments within the root element with curly brackets */}
       {/* comments which look like a stream comment within curly brackets are JSX comments */}
-      <Header />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/SignUp" element={<SignUp />} />

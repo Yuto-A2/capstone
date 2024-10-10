@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import "../components/YourProgress.css";
 import { useParams } from 'react-router-dom';
+import Header from "../components/Header"
+
+
 
 export default function YourProgress() {
   const { id } = useParams();
@@ -30,6 +33,7 @@ export default function YourProgress() {
 
   return (
     <>
+    <Header navigation />
       <div className="userContainer">
         <img src={userInfo.profilePic} alt="" className="userImg" />
         <span className="userName">{userInfo.userName}</span>

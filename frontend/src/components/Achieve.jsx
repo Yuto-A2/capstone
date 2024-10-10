@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import "../components/Acheive.css"
+import Header from "../components/Header"
 
 export default function Achieve() {
     const { id } = useParams();
@@ -35,6 +36,7 @@ export default function Achieve() {
 
     return (
         <>
+        <Header navigation />
             <div className="learningHour">
                 <span className="learningtime">Learning hour</span>
                 <span className="today">{userInfo.date}</span>

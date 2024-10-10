@@ -1,19 +1,32 @@
 import Nav from "./Nav"
 import { Users } from "../pages/dummyData";
 
-export default function Header() {
+export default function Header({ navigation }) {
+  const LoginSignUp = () => {
+    return (
+      <header></header>
+    )
+  }
+
+  const OtherPages = () => {
+    return (
+      <header id="header">
+        <div className="titleBox">
+          <h1 id="site-name">
+            <a href="/">J-Goal</a>
+          </h1>
+        </div> {/* titleBox */}
+        <div className="loginUser">
+          <span className="userName">Log out</span>
+          <img src={Users[0].profilePicture} alt="" className="loginImg" />
+        </div>
+        <Nav />
+      </header>
+    );
+  }
   return (
-    <header id="header">
-      <div className="titleBox">
-        <h1 id="site-name">
-          <a href="/">J-Goal</a>
-        </h1>
-      </div> {/* titleBox */}
-      <div className="loginUser">
-        <span className="userName">Log out</span>
-        <img src={Users[0].profilePicture} alt="" className="loginImg" />
-      </div>
-      <Nav />
-    </header>
-  );
+    <>
+      {navigation ? <OtherPages /> : <LoginSignUp />}
+    </>
+  )
 }
