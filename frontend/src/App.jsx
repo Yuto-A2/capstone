@@ -5,7 +5,7 @@ import SignUp from "./pages/SignUp"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import YourProgress from "./components/YourProgress"
 import SetYourPlan from "./pages/SetYourPlan"
-import Acheivement from "./pages/Acheivement"
+import Acheivement from "./components/Achieve"
 import Complete from "./pages/TrackMyProgress"
 function App() {
   //comments out here don't need curly brackets because this is just regular JS out here (JSX is in the return statement)
@@ -21,7 +21,7 @@ function App() {
         <Route path="/YourProgress/:id" element={<YourProgress />} />
         <Route path="/SetYourPlan" element={<SetYourPlan />} />
         <Route path="/TrackMyProgress" element={<Complete />} />
-        <Route path="/Acheivement" element={<Acheivement />} />
+        <Route path="/Achievement/:id" element={<Acheivement />} />
       </Routes>
       <Footer />
     </BrowserRouter>

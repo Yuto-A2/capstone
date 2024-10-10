@@ -1,33 +1,71 @@
 export const Users = [
-    {
-      id: 1,
-      profilePicture: "/img/john.jpeg",
-      username: "Yuto",
+  {
+    "_id": {
+      "$oid": "66f30a99182e279b2fc7737b"
     },
-  ];
-  
-  export const StudyGoal = [
-    {
-      id: 1,
-      totalStudyTime: 500,
-      jlptTotalHour: 20,
-      studiedSubject1: "minnanonihongop.100",
-      studiedSubject2: "minnanonihongop.101",
-      studiedSubject3: "minnanonihongop.102",
-      studiedSubject4: "minnanonihongop.103",
-      studiedSubject5: "minnanonihongop.104",
-      studiedSubject6: "minnanonihongop.105",
-      studiedSubject7: "minnanonihongop.106",
-      date: "2024.9.26",
-      category: "grammar",
-      weeklyGoalTime: 20,
-      weeklyAcheivedHour: 15,
-      daylyAcheivedHour: 3,
-      monthlyAcheivedHour: 50,
-      homework1: "Speaking practice",
-      homework2: "Grammar p. 100",
-      homework3: "",
-      homework4: "",
-      homework5: "",
+    "userName": "Taro",
+    "email": "taro@gmail.com",
+    "password": "password",
+    "profilePicture": "/img/john.jpeg",
+    "studyHours": {
+      "daily": 3,
+      "weekly": 15,
+      "monthly": 60,
+      "jlpt": 5,
+      "total": 120
     },
+    "homework": [
+      {
+        "title": "minnanonihongop98",
+        "description": "grammar practice"
+      },
+      {
+        "title": "speaking practice",
+        "description": "making script and practice speaking"
+      }
+    ],
+    "planOfWeeklyStudyHour": 20,
+    "WeeklyStudySetting": [
+      {
+        "study": "minnanonihongop.100-105",
+      },
+      {
+        "study": "kanjip.100 -105"
+      }
+    ],
+    "achievement": [
+      {
+        "date": "9.1 Sun",
+        "study": "minnanonihonogop100",
+      },
+      {
+        "date": "9.2 Mon",
+        "study": "minnanonihonogop101",
+      },
+      {
+        "date": "9.3 Tue",
+        "study": "minnanonihonogop102",
+      },
+      {
+        "date": "9.4 Wed",
+        "study": "minnanonihonogop103",
+      },
+      {
+        "date": "9.5 Thr",
+        "study": "minnanonihonogop104",
+      },
+      {
+        "date": "9.6 Fri",
+        "study": "minnanonihonogop105",
+      },
+      {
+        "date": "9.7 Sat",
+        "study": "minnanonihonogop106",
+      },
+    ],
+    "category": "grammar",
+    "date": "10.9 Wed",
+  },
   ];
+
+
