@@ -6,6 +6,7 @@ import Header from "../components/Header"
 export default function Achieve() {
     const { id } = useParams();
     const [userInfo, setUserInfo] = useState(null);
+    const todayDate = new Date().toLocaleDateString('en-Ca', { weekday:"long", year:"numeric", month:"short", day:"numeric"}); 
 
     useEffect(() => {
         const getloginInfo = async () => {
@@ -39,7 +40,7 @@ export default function Achieve() {
         <Header navigation />
             <div className="learningHour">
                 <span className="learningtime">Learning hour</span>
-                <span className="today">{userInfo.date}</span>
+                <span className="today">{todayDate}</span>
             </div>
 
             <table className="studyHourTable">

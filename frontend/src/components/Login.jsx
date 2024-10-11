@@ -14,9 +14,9 @@ export default function Login() {
         <div className="Login">
           <form onSubmit={handleForm}>
             <label htmlFor="">User Name:</label>
-            <input name="userName" className="nameForm" type="text" />
+            <input name="userName" className="nameForm" type="text" required />
             <label htmlFor="">Password:</label>
-            <input name="password" className="password" type="password" />
+            <input name="password" className="password" type="password" required minLength="6" />
             <button className="loginButton" type="submit">Log in</button>
             <button className="signupButton" type="submit">Sign up</button>
           </form>

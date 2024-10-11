@@ -1,35 +1,27 @@
+import { useRef } from "react"
 
 // User name input.
 export default function Signup() {
-    async function handleForm(e) {
-        //e.preventDefault(); // prevent actual page refresh on submission
-        //console.log(e.target.from.value);
-        let setUsers = {
-            userName: e.target.userName.value,
-            email: e.target.email.value,
-            password: e.target.password.value,
-            confirmPsw: e.target.confirmPsw.value
-        };
-        await fetch(`https://localhost:8888/api/users/add/submit`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(setUsers) 
-        });
+    const email = useRef();
+    const password = useRef();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(email.current.value)
+        console.log(password.current.value)
     }
     return (
         <>
             <div className="userNameContainer">
-                <form onSubmit={handleForm}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <label htmlFor="userName">User Name:</label>
-                    <input name="userName" className="nameForm" type="text" />
+                    <input name="userName" className="nameForm" type="text" required />
                     <label htmlFor="email">Email:</label>
-                    <input name="email" className="emailForm" type="email" />
+                    <input name="email" className="emailForm" type="email" required />
                     <label htmlFor="">Password:</label>
-                    <input name="password" className="password" type="password" />
+                    <input name="password" className="password" type="password" required minLength="6" />
                     <label htmlFor="password">Confirm Password:</label>
-                    <input name="confirmPsw" className="confirmPassword" type="password" />
+                    <input name="confirmPsw" className="confirmPassword" type="password" required minLength="6" />
                     <button className="createButton" type="submit">Create an account</button>
                 </form>
             </div>
