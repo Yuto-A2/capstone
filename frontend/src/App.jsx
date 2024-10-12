@@ -1,4 +1,3 @@
-import { AuthContextProvider } from "./state/AuthContext";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -14,19 +13,17 @@ function App() {
   const { user } = useContext(AuthContext);
 
   return (
-    <AuthContextProvider>  {/* ここでプロバイダをラップ */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/YourProgress/:id" element={user ? <YourProgress /> : <Navigate to="/" />} />
-          <Route path="/SetYourPlan" element={<SetYourPlan />} />
-          <Route path="/TrackMyProgress" element={<Complete />} />
-          <Route path="/Achievement/:id" element={<Achievement />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </AuthContextProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/YourProgress/:id" element={user ? <YourProgress /> : <Navigate to="/" />} />
+        <Route path="/SetYourPlan" element={<SetYourPlan />} />
+        <Route path="/TrackMyProgress" element={<Complete />} />
+        <Route path="/Achievement/:id" element={<Achievement />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
