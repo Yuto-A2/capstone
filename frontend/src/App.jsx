@@ -1,30 +1,33 @@
-import Footer from "./components/Footer"
-import Home from "./pages/Home"
-import SignUp from "./pages/SignUp"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import YourProgress from "./components/YourProgress"
-import SetYourPlan from "./pages/SetYourPlan"
-import Acheivement from "./components/Achieve"
-import Complete from "./pages/TrackMyProgress"
+import { AuthContextProvider } from "./state/AuthContext";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import YourProgress from "./components/YourProgress";
+import SetYourPlan from "./pages/SetYourPlan";
+import Achievement from "./components/Achieve";
+import Complete from "./pages/TrackMyProgress";
+import { useContext } from "react";
+import { AuthContext } from "./state/AuthContext";
+
 function App() {
-  //comments out here don't need curly brackets because this is just regular JS out here (JSX is in the return statement)
+  const { user } = useContext(AuthContext);
+
   return (
-    <BrowserRouter>
-      {/* empty tags like above and below define a fragment to allow you to have a root element which doesn't render to an actual element when compiling */}
-      {/* anything in the return() statement is JSX so write your comments within the root element with curly brackets */}
-      {/* comments which look like a stream comment within curly brackets are JSX comments */}
-      
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/YourProgress/:id" element={<YourProgress />} />
-        <Route path="/SetYourPlan" element={<SetYourPlan />} />
-        <Route path="/TrackMyProgress" element={<Complete />} />
-        <Route path="/Achievement/:id" element={<Acheivement />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-  )
+    <AuthContextProvider>  {/* ここでプロバイダをラップ */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/YourProgress/:id" element={user ? <YourProgress /> : <Navigate to="/" />} />
+          <Route path="/SetYourPlan" element={<SetYourPlan />} />
+          <Route path="/TrackMyProgress" element={<Complete />} />
+          <Route path="/Achievement/:id" element={<Achievement />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </AuthContextProvider>
+  );
 }
 
-export default App
+export default App;

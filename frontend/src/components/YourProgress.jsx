@@ -7,6 +7,7 @@ import Header from "../components/Header"
 
 export default function YourProgress() {
   const { id } = useParams();
+  // const username = useParams().username;
   const [userInfo, setUserInfo] = useState(null); 
 
   useEffect(() => {

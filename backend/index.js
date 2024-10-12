@@ -27,14 +27,7 @@ app.use(cors({
     origin: "*"
 }));
 
-
-// api/login 
-// get user's information
-app.get("/api/login", async (request, response) => {
-    let login = await getloginInfo();
-    response.json(login);
-})
-
+// Connect with database.
 async function connection() {
     await client.connect();
     const db = client.db("loginInfo");
@@ -44,26 +37,6 @@ async function connection() {
 async function getloginInfo() {
     db = await connection();
     const results = db.collection("userInfo").find({});
-    const res = await results.toArray();
-    return res;
-}
-
-// api/goals 
-// get goal's information
-app.get("/api/goal", async (request, response) => {
-    let goal = await getGoalInfo();
-    response.json(goal);
-})
-
-async function connection() {
-    await client.connect();
-    const db = client.db("loginInfo");
-    return db;
-}
-
-async function getGoalInfo() {
-    db = await connection();
-    const results = db.collection("StudyGoal").find({});
     const res = await results.toArray();
     return res;
 }
@@ -116,31 +89,65 @@ async function getSingleLink(id) {
     return result;
 }
 
-//Add user's information to signup
-app.get("/api/signup/add", async (request, response) => {
-    let links = await getloginInfo();
-    response.render("set-your-goal", { title: "Add menu link", menu: links })
-});
-app.post("/api/signup/add/submit", async (request, response) => {
-    let userId = request.body.userId;
-    let userName = request.body.userName;
-    let email = request.body.email;
-    let password = request.body.password;
-    let signup = {
-        userId: userId,
-        userName: userName,
-        email: email,
-        password: password,
+// get user information by query
+app.get("/", async (req, res) => {
+    const userId = req.query.userId;
+    const userName = req.query.userName;
+    const User = await new User ({
+        userId: req.params.userId,
+        userName: req.body.userName,
+        email: req.body.email,
+        password: req.body.password,
+    })
+    try {
+      const user = userId
+        ? await User.findById(userId)
+        : await User.findOne({ userName: userName });
+      const { password, ...other } = user._doc;
+      return res.status(200).json(other);
+    } catch (err) {
+      return res.status(500).json(err);
     }
-    await addStudy(signup);
-    response.redirect("YourProgress/:id");
-})
+  });
 
-async function addStudy(newStudy) {
-    db = await connection();
-    var status = await db.collection("StudyGoal").insertOne(newStudy);
-    console.log("study added");
+//Add user's information to signup
+app.post("/signup", async(req, res) => {
+    try {
+        const newUser = await new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        });
+
+        const user = await newUser.save();
+        return res.status(200).json(user);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+});
+
+// Add user's information to login
+app.post("/login", async (req, res) => {
+    try {
+        const user = await getEmail(req.body.email); // get user name
+        if (!user) return res.status(404).send("cannot find the user name");
+        
+        const validPassword = req.body.password === user.password; 
+        if (!validPassword) return res.status(400).json("Wrong password");
+        
+        return res.status(200).json(user);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+});
+
+// access database and get the user email
+async function getEmail(email) {
+    const db = await connection();
+    const result = await db.collection("userInfo").findOne({ email: email }); // search user name
+    return result;
 }
+
 
 getloginInfo().then(data => {
     console.log(data);
