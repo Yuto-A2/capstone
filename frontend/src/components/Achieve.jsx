@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import "../components/Acheive.css"
-import Header from "../components/Header"
+import "../components/Acheive.css";
+import Header from "../components/Header";
 
 export default function Achieve() {
     const { id } = useParams();
     const [userInfo, setUserInfo] = useState(null);
-    const todayDate = new Date().toLocaleDateString('en-Ca', { weekday:"long", year:"numeric", month:"short", day:"numeric"}); 
+    const todayDate = new Date().toLocaleDateString('en-CA', { weekday: "long", year: "numeric", month: "short", day: "numeric" });
 
     useEffect(() => {
         const getloginInfo = async () => {
@@ -21,19 +21,18 @@ export default function Achieve() {
             } catch (error) {
                 console.error("Fetch error:", error);
             }
-        }
+        };
         getloginInfo();
     }, [id]);
 
+    // 
     if (!userInfo) {
         return <p>Loading...</p>;
     }
 
-    const { studyHours, achievement } = userInfo;
-
-    if (!studyHours || !achievement) {
-        return <p>Data is not available</p>;
-    }
+    // Set default
+    const studyHours = userInfo.studyHours || { daily: 0, weekly: 0, monthly: 0 };
+    const achievement = userInfo.achievement || [];
 
     return (
         <>

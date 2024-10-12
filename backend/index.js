@@ -42,23 +42,32 @@ async function getloginInfo() {
 }
 
 //user's information add
-app.get("/api/users/add", async (request, response) => {
-    let links = await getloginInfo();
-    response.render("YourProgress", { title: "Add menu link", menu: links })
-});
 app.post("/api/users/add/submit", async (request, response) => {
-    let userId = request.body.userId;
-    let userName = request.body.userName;
-    let email = request.body.email;
-    let password = request.body.password;
+    let userName = request.body.userName;  
+    let email = request.body.email;        
+    let password = request.body.password;  
+    let profilePic = request.body.profilePic; 
+    
+    let studyHours = request.body.studyHours; 
+    let homework = request.body.homework; 
+    let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
+    let WeeklyStudySetting = request.body.WeeklyStudySetting; 
+    let achievement = request.body.achievement; 
+    let category = request.body.category; 
+
     let setUsers = {
-        userId: userId,
         userName: userName,
         email: email,
-        password: password
+        password: password,
+        profilePic: profilePic,
+        studyHours: studyHours,
+        homework: homework,
+        planOfWeeklyStudyHour: planOfWeeklyStudyHour,
+        WeeklyStudySetting: WeeklyStudySetting,
+        achievement: achievement,
+        category: category
     }
     await addUser(setUsers);
-    response.redirect("/");
 })
 
 async function addUser(userInfo) {
@@ -109,22 +118,6 @@ app.get("/", async (req, res) => {
       return res.status(500).json(err);
     }
   });
-
-//Add user's information to signup
-app.post("/signup", async(req, res) => {
-    try {
-        const newUser = await new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-        });
-
-        const user = await newUser.save();
-        return res.status(200).json(user);
-    } catch (err) {
-        return res.status(500).json(err);
-    }
-});
 
 // Add user's information to login
 app.post("/login", async (req, res) => {

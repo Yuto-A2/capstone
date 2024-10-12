@@ -1,16 +1,5 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 export default function Complete() {
-    const [userInfo, SetYourPlan] = useState([]);
-    // this rought get user's information from the database
-    useEffect(() => {
-        const getloginInfo = async () => {
-            let response = await fetch("http://localhost:8888//:id");
-            let data = await response.json();
-            console.log(data);
-            SetYourPlan(data);
-        }
-        getloginInfo();
-    }, []);
     // show user's goal and achievement
     return (
         <>

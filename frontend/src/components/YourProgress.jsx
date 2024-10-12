@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import "../components/YourProgress.css";
 import { useParams } from 'react-router-dom';
-import Header from "../components/Header"
-
-
+import Header from "../components/Header";
 
 export default function YourProgress() {
   const { id } = useParams();
-  // const username = useParams().username;
   const [userInfo, setUserInfo] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getloginInfo = async () => {
@@ -18,59 +16,69 @@ export default function YourProgress() {
           throw new Error("Network response was not ok");
         }
         let data = await response.json();
-        console.log(data);
         setUserInfo(data);
       } catch (error) {
+        setError(error.message);
         console.error("Fetch error:", error);
       }
     }
     getloginInfo();
   }, [id]);
 
-
   if (!userInfo) {
-    return <p>Loading...</p>; 
+    return <p>Loading...</p>;  
   }
+
+  // Set default
+  const studyHours = userInfo.studyHours || {
+    total: 0, 
+    jlpt: 0, 
+    weekly: 0 
+  };
+  const homework = userInfo.homework || [];
 
   return (
     <>
-    <Header navigation />
+      <Header navigation />
       <div className="userContainer">
-        <img src={userInfo.profilePic} alt="" className="userImg" />
+        <img src={userInfo.profilePic ? userInfo.profilePic : "/img/noAvatar.png"} alt="" className="userImg" />
         <span className="userName">{userInfo.userName}</span>
       </div>
-      <p className="studyHour">You’ve spent {userInfo.studyHours.total} hours for learning Japanese.</p>
+      <p className="studyHour">You’ve spent {studyHours.total} hours for learning Japanese.</p>
       <div className="progressContainer">
         <div className="totalStudied">
           <p className="requiredText">Required hours to acquire Japanese.</p>
           <p className="studyText">2200 hours</p>
-          <p className="studyText">You have studied {userInfo.studyHours.total} hours.</p>
+          <p className="studyText">You have studied {studyHours.total} hours.</p>
         </div>
         <div className="jlptRequired">
           <p className="requiredText">Required hours to pass JLPT N 5.</p>
           <p className="studyText">350 hours</p>
-          <p className="studyText">You have studied {userInfo.studyHours.jlpt} hours.</p>
+          <p className="studyText">You have studied {studyHours.jlpt} hours.</p>
         </div>
         <div className="goalOfWeek">
           <p className="requiredText">Your goal of this week.</p>
           <p className="studyText">{userInfo.planOfWeeklyStudyHour} hours</p>
-          {/* loop study goal */}
-          {userInfo.WeeklyStudySetting.map((study, index) => (
+          {userInfo.WeeklyStudySetting?.map((study, index) => (
             <p className="studyText" key={index}>
               {study.study}
             </p>
           ))}
-          <p className="studyText">You have studied {userInfo.studyHours.weekly} hours.</p>
+          <p className="studyText">You have studied {studyHours.weekly} hours.</p>
         </div>
         <div className="homeworkOfWeek">
           <p className="requiredText">Your Homework this week.</p>
-          {userInfo.homework.map((hw, index) => (
-            <div key={index}>
-              <p className="studyText">{hw.title}</p>
-            </div>
-          ))}
-        </div>
-      </div>{/* progress container */}
+          {homework.length > 0 ? (
+            homework.map((hw, index) => (
+              <div key={index}>
+                <p className="studyText">{hw.title}</p>
+              </div>
+            ))
+          ) : (
+            <p>No homework this week.</p>
+          )}
+        </div>{/* /dvi homeworkOfWeek */}
+      </div> {/* /div progressContainer */}
     </>
   );
 }
