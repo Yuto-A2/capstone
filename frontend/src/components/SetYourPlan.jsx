@@ -1,11 +1,30 @@
-// import { useState, useEffect } from "react";
+import { useRef } from "react";
 import "../components/SetYourPlan.css"
-export default function SetYourPlan() {
+import axios from "axios";
 
+export default function SetYourPlan() {
+  const category = useRef();
+  const studyHour = useRef();
+  const homeworkTitle = useRef();
+  const homeworkDsc = useRef();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+      try {
+        const user = {
+          category: category.current.value,
+          planOfWeeklyStudyHour: studyHour.current.value,
+          homeworkTitle: homeworkTitle.current.value,
+          homeworkDsc: homeworkDsc.current.value
+        };
+        await axios.post("http://localhost:8888/api/goals/add", user)
+      } catch (err) {
+        console.log(err)
+      }
+  };
   // show user's goal and achievement
   return (
     <>
-      <form action="">
+      <form onSubmit={(e) => handleSubmit(e)}>
         {/* setting goals */}
         <div className="setGoalWrapper">
           <div className="setGoal">
@@ -23,7 +42,7 @@ export default function SetYourPlan() {
             <p className="explanation">Category</p>
           </div>{/* setCategory */}
           <div className="setCategoryContainer">
-            <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) Grammar" />
+            <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) Grammar" ref={category} />
           </div>{/* setGoalContainer */}
         </div>{/* setGoalWrapper */}
 
@@ -33,7 +52,7 @@ export default function SetYourPlan() {
             <p className="explanation">How many hours do you want to learn in this week?</p>
           </div>{/* setTime */}
           <div className="setTimeContainer">
-            <input name="setTimeForm" className="setTimeForm" type="text" placeholder="(ex) 20" />
+            <input name="setTimeForm" className="setTimeForm" type="text" placeholder="(ex) 20" ref={studyHour} />
           </div>{/* setTimeContainer */}
         </div>{/* setTimeWrapper */}
 
@@ -44,7 +63,7 @@ export default function SetYourPlan() {
             <p className="explanation">(title) </p>
           </div>{/* setHomeworkTitle */}
           <div className="setHomeworkTitleContainer">
-            <input name="setHomeworkTitleForm" className="setHomeworkTitleForm" type="text" placeholder="(ex) text.100 - 101" />
+            <input name="setHomeworkTitleForm" className="setHomeworkTitleForm" type="text" placeholder="(ex) text.100 - 101" ref={homeworkTitle} />
           </div>{/* setHomeworkTitleContainer */}
         </div>{/* setHomeworkTitleWrapper */}
 
@@ -55,7 +74,7 @@ export default function SetYourPlan() {
             <p className="explanation">(description) </p>
           </div>{/* setHomeworkDsc */}
           <div className="setHomeworkDscContainer">
-            <input name="HomeworkDsc" className="HomeworkDscForm" type="text" placeholder="(ex) Grammar practice." />
+            <input name="HomeworkDsc" className="HomeworkDscForm" type="text" placeholder="(ex) Grammar practice." ref={homeworkDsc} />
             <button className="btn" type="submit">Submit</button>
           </div>{/* setHomeworkDscContainer */}
         </div > {/* setHomeworkDscWrapper */}

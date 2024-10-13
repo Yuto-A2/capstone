@@ -73,8 +73,57 @@ app.post("/api/users/add/submit", async (request, response) => {
 async function addUser(userInfo) {
     db = await connection();
     var status = await db.collection("userInfo").insertOne(userInfo);
-    console.log("study added");
+    console.log("Signed up");
 }
+
+// input their goals
+app.post("/api/goals/add", async (request, response) => {
+    let studyHours = request.body.studyHours; 
+    let homework = request.body.homework; 
+    let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
+    let homeworkTitle = request.body.homeworkTitle; 
+    let homeworkDsc = request.body.homeworkDsc; 
+    let category = request.body.category; 
+
+    let setGoals = {
+        studyHours: studyHours,
+        homework: homework,
+        planOfWeeklyStudyHour: planOfWeeklyStudyHour,
+        homeworkTitle: homeworkTitle,
+        homeworkDsc: homeworkDsc,
+        category: category
+    }
+    await addGoals(setGoals);
+})
+
+async function addGoals(userInfo) {
+    db = await connection();
+    var status = await db.collection("userInfo").insertOne(userInfo);
+    console.log("goals added");
+}
+
+// input their acievement
+app.post("/api/achievement/add", async (request, response) => {
+    let studyDate = request.body.studyDate;
+    let studied = request.body.studied; 
+    let studiedHour = request.body.studiedHour; 
+    let category = request.body.category; 
+
+    let setAchievement = {
+        studyDate: studyDate,
+        studied: studied,
+        studiedHour: studiedHour,
+        category: category
+    }
+    await addAchievement(setAchievement);
+})
+
+async function addAchievement(AchievedStudy) {
+    db = await connection();
+    var status = await db.collection("AchievedStudy").insertOne(AchievedStudy);
+    console.log("Achievemetnt added");
+}
+
 
 // get each user's informain
 app.get("/YourProgress/:id", async (req, res) => {

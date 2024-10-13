@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useRef } from "react"
-import { useNavigate } from 'react-router-dom';
 
 // User name input.
 export default function Signup() {
@@ -8,7 +7,6 @@ export default function Signup() {
     const passwordConfirmation = useRef();
     const email = useRef();
     const password = useRef();
-    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password.current.value !== passwordConfirmation.current.value) {
@@ -21,7 +19,6 @@ export default function Signup() {
                     password: password.current.value,
                 };
                 await axios.post("http://localhost:8888/api/users/add/submit", user)
-                navigate("/YourProgress/:id")
             } catch (err) {
                 console.log(err)
             }
