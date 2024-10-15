@@ -109,12 +109,12 @@ async function addUser(userInfo) {
                 email: userInfo.email, 
                 profilePic: userInfo.profilePic,  
                 password: userInfo.password,  
-                studyHours: userInfo.studyHours,  // goal
-                homework: userInfo.homework,  // homeworkの更新
-                planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour,  // 週計画
-                homeworkTitle: userInfo.homeworkTitle,  // 宿題タイトルの更新
-                homeworkDsc: userInfo.homeworkDsc,  // 宿題詳細の更新
-                studiedHour: userInfo.studiedHour,  // 学
+                studyHours: userInfo.studyHours,  
+                homework: userInfo.homework,  
+                planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
+                homeworkTitle: userInfo.homeworkTitle,  
+                homeworkDsc: userInfo.homeworkDsc,
+                studiedHour: userInfo.studiedHour,  
             }
         },
         { upsert: true }  
