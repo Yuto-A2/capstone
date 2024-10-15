@@ -35,16 +35,16 @@ export default function SetYourPlan() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // newGoal オブジェクトを構造化して、バックエンドに送信するデータを整える
+    
     const newGoal = {
       userId: user._id,
       category: category.current.value,
-      studiedHour: {  // ここが必要です
+      studiedHour: {  
         daily: parseFloat(studyHour.current.value),
         weekly: 0,
         monthly: 0,
         jlpt: 0,
-        total: parseFloat(studyHour.current.value)  // 同じ値をtotalにも設定
+        total: parseFloat(studyHour.current.value)  
       },
       homeworkTitle: homeworkTitle.current.value,
       homeworkDsc: homeworkDsc.current.value,
