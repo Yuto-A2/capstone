@@ -10,12 +10,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// エントリーポイントの設定を追加
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': '/src', // 必要ならエイリアスを設定
+      '@': '/src', // エイリアスの設定
     },
   },
   build: {
