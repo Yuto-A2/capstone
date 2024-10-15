@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+// import { defineConfig } from 'vite';
+// import react from '@vitejs/plugin-react';
 
 // export default defineConfig({
 //   plugins: [react()],
@@ -8,12 +8,12 @@ import react from '@vitejs/plugin-react';
 //   }
 // });
 
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
 export default defineConfig({
-  root: './frontend',  // プロジェクトのルートを指定（frontendフォルダ内で作業）
+  plugins: [react()],
   build: {
-    outDir: '../dist', // 出力先を指定
-    rollupOptions: {
-      input: './frontend/index.html', // HTML ファイルを指定
-    },
-  },
+    outDir: 'dist'
+  }
 });
