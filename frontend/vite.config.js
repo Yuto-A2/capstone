@@ -19,7 +19,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: './src/main.jsx', // ここをエントリーポイントに指定
+      input: '/src/main.jsx', // ここをエントリーポイントに指定
     }
   }
 });
