@@ -48,6 +48,7 @@ app.post("/api/users/add/submit", async (request, response) => {
     let email = request.body.email;        
     let password = request.body.password;  
     let profilePic = request.body.profilePic; 
+
     
     // // set goal
     // let studyHours = request.body.studyHours; 
