@@ -7,14 +7,12 @@
 //     outDir: 'dist'
 //   }
 // });
-
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
 export default defineConfig({
-  root: './frontend',  // プロジェクトのルートディレクトリ
+  plugins: [react()],
   build: {
-    outDir: './frontend/dist',  // 出力ディレクトリを指定
-    rollupOptions: {
-      input: './frontend/index.html',  // エントリーポイントのHTML
-    },
-  },
+    outDir: 'dist'
+  }
 });
