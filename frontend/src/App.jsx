@@ -15,12 +15,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={user ? <SetYourPlan /> : <Home />} />
         <Route path="/SignUp" element={user ? <YourProgress /> : <SignUp />} />
         <Route path="/YourProgress/:id" element={user ? <YourProgress /> : <Navigate to="/" />} />
         {/* <Route path="/YourProgress/:id" element={<YourProgress />} /> */}
-        <Route path="/SetYourPlan" element={<SetYourPlan />} />
-        <Route path="/TrackMyProgress" element={<Complete />} />
+        <Route path="/SetYourPlan/:id" element={<SetYourPlan />} />
+        <Route path="/TrackMyProgress/:id" element={<Complete />} />
         <Route path="/Achievement/:id" element={<Achievement />} />
       </Routes>
       <Footer />

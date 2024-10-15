@@ -1,26 +1,68 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import "../components/SetYourPlan.css"
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../state/AuthContext";
 
 export default function SetYourPlan() {
+  // const { id } = useParams();
+  // const [userInfo, setUserInfo] = useState(null); 
+  // const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   const getloginInfo = async () => {
+  //     try {
+  //       let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       let data = await response.json();
+  //       setUserInfo(data);
+  //     } catch (error) {
+  //       setError(error.message);
+  //       console.error("Fetch error:", error);
+  //     }
+  //   }
+  //   getloginInfo();
+  // }, [id]);
+
   const category = useRef();
   const studyHour = useRef();
   const homeworkTitle = useRef();
   const homeworkDsc = useRef();
+  const { user } = useContext(AuthContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-      try {
-        const user = {
-          category: category.current.value,
-          planOfWeeklyStudyHour: studyHour.current.value,
-          homeworkTitle: homeworkTitle.current.value,
-          homeworkDsc: homeworkDsc.current.value
-        };
-        await axios.post("http://localhost:8888/api/goals/add", user)
-      } catch (err) {
-        console.log(err)
-      }
+
+    // newGoal オブジェクトを構造化して、バックエンドに送信するデータを整える
+    const newGoal = {
+      userId: user._id,
+      category: category.current.value,
+      studiedHour: {  // ここが必要です
+        daily: parseFloat(studyHour.current.value),
+        weekly: 0,
+        monthly: 0,
+        jlpt: 0,
+        total: parseFloat(studyHour.current.value)  // 同じ値をtotalにも設定
+      },
+      homeworkTitle: homeworkTitle.current.value,
+      homeworkDsc: homeworkDsc.current.value,
+    };
+    try {
+      // APIにPOSTリクエストを送信
+      await axios.post(`http://localhost:8888/api/users/add/submit/${user._id}`, newGoal, {
+        headers: {
+          "Content-Type": "application/json",  // JSONとして送信
+        },
+      });
+      console.log("Goal updated successfully");
+    } catch (err) {
+      console.log("Error while updating goal:", err);  // エラーハンドリング
+    }
   };
+
+
   // show user's goal and achievement
   return (
     <>

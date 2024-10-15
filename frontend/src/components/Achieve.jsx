@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from 'react-router-dom';
 import "../components/Acheive.css";
 import Header from "../components/Header";
+import { AuthContext } from "../state/AuthContext";
 
 export default function Achieve() {
     const { id } = useParams();
     const [userInfo, setUserInfo] = useState(null);
     const todayDate = new Date().toLocaleDateString('en-CA', { weekday: "long", year: "numeric", month: "short", day: "numeric" });
-
+    const { user } = useContext(AuthContext);
     useEffect(() => {
-        const getloginInfo = async () => {
+        const getGoalInfo = async () => {
             try {
-                let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
+                let response = await fetch(`http://localhost:8888/achievement/${user._id}`);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
@@ -22,7 +23,7 @@ export default function Achieve() {
                 console.error("Fetch error:", error);
             }
         };
-        getloginInfo();
+        getGoalInfo();
     }, [id]);
 
     // 
@@ -31,8 +32,8 @@ export default function Achieve() {
     }
 
     // Set default
-    const studyHours = userInfo.studyHours || { daily: 0, weekly: 0, monthly: 0 };
-    const achievement = userInfo.achievement || [];
+    const studyHours = userInfo.studiedHour || { daily: 0, weekly: 0, monthly: 0 };
+    const achievement = userInfo.studied || [];
 
     return (
         <>

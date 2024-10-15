@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "../components/YourProgress.css";
 import { useParams } from 'react-router-dom';
 import Header from "../components/Header";
+import { AuthContext } from "../state/AuthContext";
 
 export default function YourProgress() {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState(null); 
   const [error, setError] = useState(null);

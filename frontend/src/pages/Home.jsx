@@ -1,25 +1,40 @@
-import { useEffect } from "react"
+import { useContext, useRef, useEffect } from "react"
+import { loginCall } from "../AcitonCalls";
+import { AuthContext } from "../state/AuthContext";
 import "../components/Home.css"
 import "../components/Login.css"
 import "../components/Signup.css"
-import Login from "../components/Login"
 import Header from "../components/Header"
 
-// homepage get components
 export default function Home() {
-  useEffect(() => {
-    document.title = "Home | J-Goal"
-  }, []);
+  const email = useRef();
+  const password = useRef();
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginCall({
+      email: email.current.value,
+      password: password.current.value,
+    },
+      dispatch
+    )
+  }
+  console.log(user)
   return (
     <>
     <Header />
-    <main id="main">
-      <h2 className="header2">Login</h2>
-      <p>Let's track your learning♪</p>
-      <div>
-        <Login />
+      <div className="Login">
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <label htmlFor="">Email:</label>
+          <input name="email" className="nameForm" type="email" required ref={email} />
+          <label htmlFor="">Password:</label>
+          <input name="password" className="password" type="password" required minLength="6" ref={password} />
+          <button className="loginButton" type="submit">Log in</button>
+          <button className="signupButton" type="submit">Sign up</button>
+        </form>
       </div>
-    </main>
     </>
   )
 }
+
+

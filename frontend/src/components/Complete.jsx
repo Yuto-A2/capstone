@@ -1,28 +1,59 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { AuthContext } from "../state/AuthContext";
 
-// import { useState, useEffect } from "react";
 export default function Complete() {
     const studyDate = useRef();
     const studied = useRef();
     const studiedHour = useRef();
     const category = useRef();
+    const { user } = useContext(AuthContext);
+
+    // Error if user is null
+    if (!user) {
+        console.log("User is null");
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // studyhour from string to numer
+        const studiedHourValue = parseFloat(studiedHour.current.value);
+    
+        const achievement = {
+            userName: "",                
+            email: "",                   
+            password: "", 
+            category: [category.current.value],  
+            studied: [{                   
+                study: studied.current.value,  
+                date: studyDate.current.value  
+            }],
+            studiedHour: {                
+                daily: studiedHourValue,    
+                weekly: 0,                  
+                monthly: 0,                 
+                jlptHour: 0,               
+                total: studiedHourValue     
+            },
+            planOfWeeklyStudyHour: 0,      
+            homeworkTitle: "",             
+            homeworkDsc: ""                
+        };
+
         try {
-            const user = {
-                category: category.current.value,
-                studyDate: studyDate.current.value,
-                studied: studied.current.value,
-                studiedHour: studiedHour.current.value
-            };
-            await axios.post("http://localhost:8888/api/achievement/add", user)
+            // Send the POST request to update the achievement
+            await axios.post(`http://localhost:8888/api/achievement/update/${user._id}`, user, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log("Achievement updated successfully");
         } catch (err) {
-            console.log(err)
+            console.log("Error while updating achievement:", err);
         }
     };
-    // show user's goal and achievement
+
     return (
         <>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -30,49 +61,49 @@ export default function Complete() {
                 <div className="trackGoalWrapper">
                     <div className="trackGoal">
                         <p className="explanation">When did you study?</p>
-                    </div>{/* trackGoal */}
+                    </div>
                     <div className="trackGoalContainer">
-                        <input name="trackGoalForm" className="trackGoalForm" type="date" ref={studyDate}/>
-                    </div>{/* trackGoalContainer */}
-                </div>{/* trackGoalWrapper */}
+                        <input name="trackGoalForm" className="trackGoalForm" type="date" ref={studyDate} />
+                    </div>
+                </div>
 
                 {/* categories */}
                 <div className="trackStudiesWrapper">
                     <div className="trackStudy">
                         <p className="explanation">What did you do?</p>
                         <p className="explanation">(You can add up to five items)</p>
-                    </div>{/* trackStudy */}
+                    </div>
                     <div className="trackStudyContainer">
-                        <input name="trackStudyForm" className="trackStudyForm" type="text" placeholder="(ex) textp.10 - 15" ref={studied}/>
-                    </div>{/* trackStudyContainer */}
-                </div>{/* trackStudiesWrapper */}
+                        <input name="trackStudyForm" className="trackStudyForm" type="text" placeholder="(ex) textp.10 - 15" ref={studied} />
+                    </div>
+                </div>
 
                 {/* track category */}
                 <div className="categoryWrapper">
                     <div className="trackCategory">
-                        <p className="explanation">category</p>
-                    </div>{/* trackCategory */}
+                        <p className="explanation">Category</p>
+                    </div>
                     <div className="setCategoryContainer">
-                        <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) grammar" ref={category}/>
-                    </div>{/* setTimeContainer */}
-                </div>{/* setTimeWrapper */}
+                        <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) grammar" ref={category} />
+                    </div>
+                </div>
 
                 {/* track study hours */}
                 <div className="trackStudyHourWrapper">
                     <div className="trackStudyHourTitle">
                         <p className="explanation">How many hours did you study?</p>
-                    </div>{/* trackStudyHourTitle */}
+                    </div>
                     <div className="trackStudyHourContainer">
-                        <input name="trackStudyHourForm" className="trackStudyHourForm" type="text" placeholder="(ex) 20" ref={studiedHour} />
-                    </div>{/* trackStudyHourContainer */}
-                </div>{/* trackStudyHourForm */}
+                        <input name="trackStudyHourForm" className="trackStudyHourForm" type="number" placeholder="(ex) 5" ref={studiedHour} />
+                    </div>
+                </div>
 
-                {/* track acheivements */}
+                {/* submit button */}
                 <div className="setHomeworkDscWrapper">
                     <div className="setHomeworkDscContainer">
                         <button className="btn" type="submit">Submit</button>
-                    </div>{/* setHomeworkDscContainer */}
-                </div > {/* setHomeworkDscWrapper */}
+                    </div>
+                </div>
             </form>
         </>
     );

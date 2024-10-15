@@ -17,8 +17,23 @@ export default function Signup() {
                     userName: username.current.value,
                     email: email.current.value,
                     password: password.current.value,
+                    category: [],  // Category (array)
+                    studied: [{
+                        study: "",  // Study detail
+                        date: ""   // Study date
+                    }],
+                    studiedHour: {
+                        daily: 0,
+                        weekly: 0,
+                        monthly: 0,
+                        jlptHour: 0,
+                        total: 0,
+                    },
+                    planOfWeeklyStudyHour: 0,
+                    homeworkTitle: "",
+                    homeworkDsc: ""
                 };
-                await axios.post("http://localhost:8888/api/users/add/submit", user)
+                await axios.post("http://localhost:8888/api/users/add/submit/{}", user)
             } catch (err) {
                 console.log(err)
             }
@@ -29,13 +44,13 @@ export default function Signup() {
             <div className="userNameContainer">
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <label htmlFor="userName">User Name:</label>
-                    <input name="userName" className="nameForm" type="text" required ref={username}/>
+                    <input name="userName" className="nameForm" type="text" required ref={username} />
                     <label htmlFor="email">Email:</label>
-                    <input name="email" className="emailForm" type="email" required ref={email}/>
+                    <input name="email" className="emailForm" type="email" required ref={email} />
                     <label htmlFor="">Password:</label>
-                    <input name="password" className="password" type="password" required minLength="6" ref={password}/>
+                    <input name="password" className="password" type="password" required minLength="6" ref={password} />
                     <label htmlFor="password">Confirm Password:</label>
-                    <input name="confirmPsw" className="confirmPassword" type="password" required minLength="6" ref={passwordConfirmation}/>
+                    <input name="confirmPsw" className="confirmPassword" type="password" required minLength="6" ref={passwordConfirmation} />
                     <button className="createButton" type="submit">Create an account</button>
                 </form>
             </div>
