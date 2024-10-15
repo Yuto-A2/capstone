@@ -37,7 +37,8 @@ export default function Signup() {
                     // }],
                     // planOfWeeklyStudyHour: 0,
                 };
-                await axios.post("http://localhost:8888/api/users/add/submit/", user);
+                // await axios.post("http://localhost:8888/api/users/add/submit/", user);
+                await axios.post("https://capstone-backend-ecru-tau.vercel.app/api/users/add/submit/", user);
                 navigate("/home")
             } catch (err) {
                 console.log(err)

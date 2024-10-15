@@ -19,28 +19,29 @@ export default function Complete() {
 
         // studyhour from string to numer
         const studiedHourValue = parseFloat(studiedHour.current.value);
-    
+
         const achievement = {
-            userName: user.userName,                
-            email: user.email,                   
-            password: user.password, 
-            category: [category.current.value],  
-            studied: [{                   
-                study: studied.current.value,  
-                date: studyDate.current.value  
+            userName: user.userName,
+            email: user.email,
+            password: user.password,
+            category: [category.current.value],
+            studied: [{
+                study: studied.current.value,
+                date: studyDate.current.value
             }],
-            studiedHour: {                
-                daily: studiedHourValue,    
-                weekly: 0,                  
-                monthly: 0,                 
-                jlptHour: 0,               
-                total: studiedHourValue     
-            },         
+            studiedHour: {
+                daily: studiedHourValue,
+                weekly: 0,
+                monthly: 0,
+                jlptHour: 0,
+                total: studiedHourValue
+            },
         };
 
         try {
             // Send the POST request to update the achievement
-            await axios.post(`http://localhost:8888/api/achievement/add/submit/${user._id}`, achievement, {
+            //await axios.post(`http://localhost:8888/api/achievement/add/submit/${user._id}`, achievement, {
+            await axios.post(`https://capstone-backend-ecru-tau.vercel.app/api/achievement/add/submit/${user._id}`, achievement, {
                 headers: {
                     "Content-Type": "application/json",
                 },
