@@ -98,6 +98,7 @@ app.post("/api/users/add/submit", async (request, response) => {
 })
 
 async function addUser(userInfo) {
+    const db = await connection(); 
     var status = await db.collection("userInfo").updateOne(
         { userName: userInfo.userName }, 
         {
@@ -160,6 +161,7 @@ app.post("/api/users/add/submit/:id", async (request, response) => {
 });
 
 async function updateUserById(userId, userInfo) {
+    const db = await connection(); 
     var status = await db.collection("StudyGoal").updateOne(
         { _id: userId },  
         {
@@ -235,6 +237,7 @@ app.post("/api/achievement/add/submit/:id", async (request, response) => {
 });
 
 async function updateAchievementById(userId, userInfo) {
+    const db = await connection(); 
     var status = await db.collection("StudyGoal").updateOne(
         { _id: userId },  
         {
