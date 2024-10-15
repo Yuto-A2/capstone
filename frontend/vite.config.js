@@ -8,8 +8,6 @@ import react from '@vitejs/plugin-react';
 //   }
 // });
 
-import { defineConfig } from 'vite';
-
 export default defineConfig({
   root: './frontend',  // プロジェクトのルートを指定（frontendフォルダ内で作業）
   build: {
