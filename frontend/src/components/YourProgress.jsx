@@ -28,7 +28,7 @@ export default function YourProgress() {
   }, [id]);
 
   if (!userInfo) {
-    return <p>Loading...</p>;  
+    return <p>Please set your goal first...</p>;  
   }
 
   // Set default
@@ -46,34 +46,34 @@ export default function YourProgress() {
         <img src={userInfo.profilePic ? userInfo.profilePic : "/img/noAvatar.png"} alt="" className="userImg" />
         <span className="userName">{userInfo.userName}</span>
       </div>
-      <p className="studyHour">You’ve spent {studyHours.total} hours for learning Japanese.</p>
+      <p className="studyHour">You’ve spent {userInfo.studiedHour.total} hours for learning Japanese.</p>
       <div className="progressContainer">
         <div className="totalStudied">
           <p className="requiredText">Required hours to acquire Japanese.</p>
           <p className="studyText">2200 hours</p>
-          <p className="studyText">You have studied {studyHours.total} hours.</p>
+          <p className="studyText">You have studied {userInfo.studiedHour.total} hours.</p>
         </div>
         <div className="jlptRequired">
           <p className="requiredText">Required hours to pass JLPT N 5.</p>
           <p className="studyText">350 hours</p>
-          <p className="studyText">You have studied {studyHours.jlpt} hours.</p>
+          <p className="studyText">You have studied {userInfo.studiedHour.jlptHour} hours.</p>
         </div>
         <div className="goalOfWeek">
           <p className="requiredText">Your goal of this week.</p>
           <p className="studyText">{userInfo.planOfWeeklyStudyHour} hours</p>
-          {userInfo.WeeklyStudySetting?.map((study, index) => (
+          {userInfo.studied?.map((study, index) => (
             <p className="studyText" key={index}>
               {study.study}
             </p>
           ))}
-          <p className="studyText">You have studied {studyHours.weekly} hours.</p>
+          <p className="studyText">You have studied {userInfo.studiedHour.weekly} hours.</p>
         </div>
         <div className="homeworkOfWeek">
           <p className="requiredText">Your Homework this week.</p>
           {homework.length > 0 ? (
             homework.map((hw, index) => (
               <div key={index}>
-                <p className="studyText">{hw.title}</p>
+                <p className="studyText">{hw.homeworkTitle}</p>
               </div>
             ))
           ) : (

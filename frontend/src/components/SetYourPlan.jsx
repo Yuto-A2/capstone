@@ -38,16 +38,15 @@ export default function SetYourPlan() {
     
     const newGoal = {
       userId: user._id,
-      category: category.current.value,
-      studiedHour: {  
-        daily: parseFloat(studyHour.current.value),
-        weekly: 0,
-        monthly: 0,
-        jlpt: 0,
-        total: parseFloat(studyHour.current.value)  
-      },
-      homeworkTitle: homeworkTitle.current.value,
-      homeworkDsc: homeworkDsc.current.value,
+      category: [category.current.value],
+      homework: [{
+        homeworkTitle: homeworkTitle.current.value,
+        homeworkDsc: homeworkDsc.current.value,
+    }],
+    userName: user.userName,
+    email: user.email,
+    password: user.password,
+    planOfWeeklyStudyHour: parseFloat(studyHour.current.value),
     };
     try {
       

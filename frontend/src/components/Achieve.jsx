@@ -12,7 +12,7 @@ export default function Achieve() {
     useEffect(() => {
         const getGoalInfo = async () => {
             try {
-                let response = await fetch(`http://localhost:8888/achievement/${user._id}`);
+                let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
@@ -28,7 +28,7 @@ export default function Achieve() {
 
     // 
     if (!userInfo) {
-        return <p>Loading...</p>;
+        return <p>Please set your study first...</p>;
     }
 
     // Set default

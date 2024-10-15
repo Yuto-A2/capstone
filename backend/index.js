@@ -41,7 +41,7 @@ async function getloginInfo() {
     return res;
 }
 
-//user's information add
+//user's information add to sign up.
 app.post("/api/users/add/submit", async (request, response) => {
     // user information
     let userName = request.body.userName;  
@@ -49,25 +49,25 @@ app.post("/api/users/add/submit", async (request, response) => {
     let password = request.body.password;  
     let profilePic = request.body.profilePic; 
     
-    // set goal
-    let studyHours = request.body.studyHours; 
-    let homework = request.body.homework; 
-    let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
-    let homeworkTitle = request.body.homeworkTitle; 
-    let homeworkDsc = request.body.homeworkDsc; 
-    let category = request.body.category;  
+    // // set goal
+    // let studyHours = request.body.studyHours; 
+    // let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
+    // let { homeworkTitle, homeworkDsc } = request.body.homework[0];
+    // let homeworktitle = homeworkTitle;
+    // let homeworkdsc = homeworkDsc;
+    // let category = request.body.category;  
 
-    //achievement
-    let { daily, weekly, monthly, jlpt, total } = request.body.studiedHour;
-    let dailyHour = daily;
-    let weeklyHour = weekly;
-    let monthlyHour = monthly;
-    let jlptHour = jlpt;
-    let totalHour = total;
-    // studying array
-    let { study, date } = request.body.studied[0];  
-    let studied = study;
-    let studyDate = date;
+    // //achievement
+    // let { daily, weekly, monthly, jlpt, total } = request.body.studiedHour;
+    // let dailyHour = daily;
+    // let weeklyHour = weekly;
+    // let monthlyHour = monthly;
+    // let jlptHour = jlpt;
+    // let totalHour = total;
+    // // studying array
+    // let { study, date } = request.body.studied[0];  
+    // let studied = study;
+    // let studyDate = date;
 
     // input information
     let setUsers = {
@@ -75,23 +75,24 @@ app.post("/api/users/add/submit", async (request, response) => {
         email: email,
         password: password,
         profilePic: profilePic,
-        studyHours: studyHours,
-        homework: homework,
-        planOfWeeklyStudyHour: planOfWeeklyStudyHour,
-        homeworkTitle: homeworkTitle,
-        homeworkDsc: homeworkDsc,
-        category: category,
-        studied: [{
-            study: studied,
-            date: studyDate
-        }],
-        studiedHour: {
-            daily: dailyHour,
-            weekly: weeklyHour,
-            monthly: monthlyHour,
-            jlptHour: jlptHour,
-            total: totalHour,
-        },
+        // studyHours: studyHours,
+        // homework: [{
+        //     homeworkTitle: homeworktitle,
+        //     homeworkDsc: homeworkdsc
+        // }],
+        // planOfWeeklyStudyHour: planOfWeeklyStudyHour,
+        // category: category,
+        // studied: [{
+        //     study: studied,
+        //     date: studyDate
+        // }],
+        // studiedHour: {
+        //     daily: dailyHour,
+        //     weekly: weeklyHour,
+        //     monthly: monthlyHour,
+        //     jlptHour: jlptHour,
+        //     total: totalHour,
+        // },
     }
     await addUser(setUsers);
 })
@@ -100,21 +101,19 @@ async function addUser(userInfo) {
     var status = await db.collection("userInfo").updateOne(
         { userName: userInfo.userName }, 
         {
-            $push: { 
-                studied: userInfo.studied[0],
-                category: { $each: userInfo.category }  
-            },
+            // $push: { 
+            //     studied: userInfo.studied[0],
+            //     category: { $each: userInfo.category },
+            //     homework: userInfo.homework[0],  
+            // },
             $set: { 
                 userName: userInfo.userName,  
                 email: userInfo.email, 
                 profilePic: userInfo.profilePic,  
                 password: userInfo.password,  
-                studyHours: userInfo.studyHours,  
-                homework: userInfo.homework,  
-                planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
-                homeworkTitle: userInfo.homeworkTitle,  
-                homeworkDsc: userInfo.homeworkDsc,
-                studiedHour: userInfo.studiedHour,  
+                // studyHours: userInfo.studyHours,  
+                // planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
+                // studiedHour: userInfo.studiedHour,  
             }
         },
         { upsert: true }  
@@ -123,6 +122,7 @@ async function addUser(userInfo) {
     console.log("UserInformation updated");
 };
 
+// Set your plan
 app.post("/api/users/add/submit/:id", async (request, response) => {
     let userId = request.params.id;
 
@@ -133,11 +133,67 @@ app.post("/api/users/add/submit/:id", async (request, response) => {
     let profilePic = request.body.profilePic; 
     
     // set goal
-    let studyHours = request.body.studyHours; 
-    let homework = request.body.homework; 
+    // let studyHours = request.body.studyHours; 
+    let { homeworkTitle, homeworkDsc } = request.body.homework[0];
+    let homeworktitle = homeworkTitle;
+    let homeworkdsc = homeworkDsc;
     let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
-    let homeworkTitle = request.body.homeworkTitle; 
-    let homeworkDsc = request.body.homeworkDsc; 
+    let category = request.body.category;  
+
+    // input information
+    let setUsers = {
+        userName: userName,
+        email: email,
+        password: password,
+        profilePic: profilePic,
+        // studyHours: studyHours,
+        planOfWeeklyStudyHour: planOfWeeklyStudyHour,
+        category: category,
+        homework: [{
+            homeworkTitle: homeworktitle,
+            homeworkDsc: homeworkdsc
+        }]
+    };
+
+    // add or update the user based on their ID
+    await updateUserById(userId, setUsers);
+});
+
+async function updateUserById(userId, userInfo) {
+    var status = await db.collection("StudyGoal").updateOne(
+        { _id: userId },  
+        {
+            $push: { 
+                category: { $each: userInfo.category },
+                homework: userInfo.homework[0]  
+            },
+            $set: { 
+                userName: userInfo.userName,  
+                email: userInfo.email, 
+                profilePic: userInfo.profilePic,  
+                password: userInfo.password,  
+                planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
+                // studiedHour: userInfo.studiedHour,  
+            }
+        },
+        { upsert: true }  
+    );
+
+    console.log("User information updated");
+}
+
+//input their achievement 
+app.post("/api/achievement/add/submit/:id", async (request, response) => {
+    let userId = request.params.id;
+
+    // user information
+    let userName = request.body.userName;  
+    let email = request.body.email;        
+    let password = request.body.password;  
+    let profilePic = request.body.profilePic; 
+    
+    // set goal
+    // let studyHours = request.body.studyHours; 
     let category = request.body.category;  
 
     // achievement
@@ -159,11 +215,7 @@ app.post("/api/users/add/submit/:id", async (request, response) => {
         email: email,
         password: password,
         profilePic: profilePic,
-        studyHours: studyHours,
-        homework: homework,
-        planOfWeeklyStudyHour: planOfWeeklyStudyHour,
-        homeworkTitle: homeworkTitle,
-        homeworkDsc: homeworkDsc,
+        // studyHours: studyHours,
         category: category,
         studied: [{
             study: studied,
@@ -179,27 +231,23 @@ app.post("/api/users/add/submit/:id", async (request, response) => {
     };
 
     // add or update the user based on their ID
-    await updateUserById(userId, setUsers);
+    await updateAchievementById(userId, setUsers);
 });
 
-async function updateUserById(userId, userInfo) {
-    var status = await db.collection("userInfo").updateOne(
+async function updateAchievementById(userId, userInfo) {
+    var status = await db.collection("StudyGoal").updateOne(
         { _id: userId },  
         {
             $push: { 
                 studied: userInfo.studied[0],
-                category: { $each: userInfo.category }  
+                category: { $each: userInfo.category }, 
+                // studyHours: userInfo.studyHours,  
             },
             $set: { 
                 userName: userInfo.userName,  
                 email: userInfo.email, 
                 profilePic: userInfo.profilePic,  
                 password: userInfo.password,  
-                studyHours: userInfo.studyHours,  
-                homework: userInfo.homework,  
-                planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
-                homeworkTitle: userInfo.homeworkTitle, 
-                homeworkDsc: userInfo.homeworkDsc,  
                 studiedHour: userInfo.studiedHour,  
             }
         },
@@ -208,83 +256,6 @@ async function updateUserById(userId, userInfo) {
 
     console.log("User information updated");
 }
-
-
-// input their goals
-app.post("/api/goals/add/:userId", async (request, response) => {
-    let userId = request.params.userId; 
-    let studyHours = request.body.studyHours; 
-    let homework = request.body.homework; 
-    let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
-    let homeworkTitle = request.body.homeworkTitle; 
-    let homeworkDsc = request.body.homeworkDsc; 
-    let category = request.body.category; 
-
-    let setGoals = {
-        userId: userId,
-        studyHours: studyHours,
-        homework: homework,
-        planOfWeeklyStudyHour: planOfWeeklyStudyHour,
-        homeworkTitle: homeworkTitle,
-        homeworkDsc: homeworkDsc,
-        category: category
-    }
-    await addGoals(setGoals);
-})
-
-async function addGoals(StudyGoal) {
-    db = await connection();
-    var status = await db.collection("StudyGoal").insertOne(StudyGoal);
-    console.log("goals added");
-}
-
-// input their acievement
-app.post("/api/achievement/update/:userId", async (request, response) => {
-    let userId = request.params.userId; 
-    // study hour array
-    let { daily, weekly, monthly, jlpt, total } = request.body.studiedHour;
-    let dailyHour = daily;
-    let weeklyHour = weekly;
-    let monthlyHour = monthly;
-    let jlptHour = jlpt;
-    let totalHour = total;
-    // studying array
-    let { study, date } = request.body.studied[0];  
-    let studied = study;
-    let studyDate = date;
-    let category = request.body.category; 
-
-    let setAchievement = {
-        userId: userId,
-        studied: [{
-            study: studied,
-            date: studyDate
-        }],
-        studiedHour: {
-            daily: dailyHour,
-            weekly: weeklyHour,
-            monthly: monthlyHour,
-            jlptHour: jlptHour,
-            total: totalHour,
-        },
-        category: [category]
-    }
-    await updateAchievement(setAchievement);
-})
-
-async function updateAchievement(AchievedStudy) {
-    db = await connection();
-    var status = await db.collection("AchievedStudy").updateOne({
-        userId: AchievedStudy.userId},
-        {
-            $push: { studied: AchievedStudy.studied[0], category: AchievedStudy.category },
-            $set: { studiedHour: AchievedStudy.studiedHour } 
-        },
-        { upsert: true }
-    );
-    console.log("Achievemetnt updated");
-};
-
 
 // get each user's informain
 app.get("/YourProgress/:id", async (req, res) => {
@@ -303,8 +274,8 @@ app.get("/YourProgress/:id", async (req, res) => {
 
 async function getSingleLink(id) {
     const db = await connection();
-    const editId = { _id: new ObjectId(id) };
-    const result = await db.collection("userInfo").findOne(editId);
+    const editId = { _id: id };  
+    const result = await db.collection("StudyGoal").findOne(editId);
     return result;
 }
 

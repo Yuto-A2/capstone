@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useRef } from "react"
+import { useNavigate } from "react-router-dom";
 
 // User name input.
 export default function Signup() {
@@ -7,6 +8,7 @@ export default function Signup() {
     const passwordConfirmation = useRef();
     const email = useRef();
     const password = useRef();
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password.current.value !== passwordConfirmation.current.value) {
@@ -17,23 +19,26 @@ export default function Signup() {
                     userName: username.current.value,
                     email: email.current.value,
                     password: password.current.value,
-                    category: [],  // Category (array)
-                    studied: [{
-                        study: "",  // Study detail
-                        date: ""   // Study date
-                    }],
-                    studiedHour: {
-                        daily: 0,
-                        weekly: 0,
-                        monthly: 0,
-                        jlptHour: 0,
-                        total: 0,
-                    },
-                    planOfWeeklyStudyHour: 0,
-                    homeworkTitle: "",
-                    homeworkDsc: ""
+                    // category: [],  // Category (array)
+                    // studied: [{
+                    //     study: "",  // Study detail
+                    //     date: ""   // Study date
+                    // }],
+                    // studiedHour: {
+                    //     daily: 0,
+                    //     weekly: 0,
+                    //     monthly: 0,
+                    //     jlptHour: 0,
+                    //     total: 0,
+                    // },
+                    // homework: [{
+                    //     homeworkTitle: "",
+                    //     homeworkDsc: ""
+                    // }],
+                    // planOfWeeklyStudyHour: 0,
                 };
-                await axios.post("http://localhost:8888/api/users/add/submit/{}", user)
+                await axios.post("http://localhost:8888/api/users/add/submit/", user);
+                navigate("/home")
             } catch (err) {
                 console.log(err)
             }

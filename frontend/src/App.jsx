@@ -19,9 +19,9 @@ function App() {
         <Route path="/SignUp" element={user ? <YourProgress /> : <SignUp />} />
         <Route path="/YourProgress/:id" element={user ? <YourProgress /> : <Navigate to="/" />} />
         {/* <Route path="/YourProgress/:id" element={<YourProgress />} /> */}
-        <Route path="/SetYourPlan/:id" element={<SetYourPlan />} />
-        <Route path="/TrackMyProgress/:id" element={<Complete />} />
-        <Route path="/Achievement/:id" element={<Achievement />} />
+        <Route path="/SetYourPlan/:id" element={user ? <SetYourPlan /> : <Navigate to="/" />} />
+        <Route path="/TrackMyProgress/:id" element={user ? <Complete /> : <Navigate to="/" />} />
+        <Route path="/Achievement/:id" element={user ? <Achievement /> : <Navigate to="/" />} />
       </Routes>
       <Footer />
     </BrowserRouter>

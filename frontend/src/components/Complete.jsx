@@ -21,9 +21,9 @@ export default function Complete() {
         const studiedHourValue = parseFloat(studiedHour.current.value);
     
         const achievement = {
-            userName: "",                
-            email: "",                   
-            password: "", 
+            userName: user.userName,                
+            email: user.email,                   
+            password: user.password, 
             category: [category.current.value],  
             studied: [{                   
                 study: studied.current.value,  
@@ -35,15 +35,12 @@ export default function Complete() {
                 monthly: 0,                 
                 jlptHour: 0,               
                 total: studiedHourValue     
-            },
-            planOfWeeklyStudyHour: 0,      
-            homeworkTitle: "",             
-            homeworkDsc: ""                
+            },         
         };
 
         try {
             // Send the POST request to update the achievement
-            await axios.post(`http://localhost:8888/api/achievement/update/${user._id}`, user, {
+            await axios.post(`http://localhost:8888/api/achievement/add/submit/${user._id}`, achievement, {
                 headers: {
                     "Content-Type": "application/json",
                 },
