@@ -50,15 +50,15 @@ export default function SetYourPlan() {
       homeworkDsc: homeworkDsc.current.value,
     };
     try {
-      // APIにPOSTリクエストを送信
+      
       await axios.post(`http://localhost:8888/api/users/add/submit/${user._id}`, newGoal, {
         headers: {
-          "Content-Type": "application/json",  // JSONとして送信
+          "Content-Type": "application/json",  
         },
       });
       console.log("Goal updated successfully");
     } catch (err) {
-      console.log("Error while updating goal:", err);  // エラーハンドリング
+      console.log("Error while updating goal:", err);  
     }
   };
 
