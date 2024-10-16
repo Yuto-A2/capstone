@@ -12,7 +12,8 @@ export default function Achieve() {
     useEffect(() => {
         const getGoalInfo = async () => {
             try {
-                let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
+                // let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
+                let response = await fetch(`https://capstone-backend-ecru-tau.vercel.app/YourProgress/${id}`);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
