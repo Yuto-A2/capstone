@@ -1,5 +1,4 @@
 import Nav from "./Nav"
-import { Users } from "../pages/dummyData";
 
 export default function Header({ navigation }) {
   const LoginSignUp = () => {
@@ -18,7 +17,7 @@ export default function Header({ navigation }) {
         </div> {/* titleBox */}
         <div className="loginUser">
           <span className="userName">Log out</span>
-          <img src={Users[0].profilePicture} alt="" className="loginImg" />
+          <img src={userInfo.profilePic ? userInfo.profilePic : "/img/noAvatar.png"} alt="" className="loginImg" />
         </div>
         <Nav />
       </header>
