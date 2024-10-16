@@ -1,21 +1,19 @@
 {
-  "name": "testapp-b",
+  "name": "my_learning_plan_app",
   "version": "1.0.0",
-  "description": "My first Express app",
+  "description": "my learning plan app",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./index.js"
+    "dev": "nodemon index.js"
   },
-  "author": "Joanna K",
+  "author": "yuto",
   "license": "ISC",
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "^3.4.0",
-    "core-js": "^3.37.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "latest": "^0.2.0",
-    "mongodb": "^6.8.0",
-    "mongoose": "^8.4.1",
-    "pug": "^3.0.3"
+    "express": "^4.21.0",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.7.0",
+    "nodemon": "^3.1.7"
   }
 }
