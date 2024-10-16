@@ -20,12 +20,6 @@ export default function Achieve() {
                 let data = await response.json();
                 console.log(data);
                 setUserInfo(data);
-
-                const weeklyGoal = 20;
-                if (data.studiedHour.weekly >= weeklyGoal) {
-                    setIsGoalReached(true);
-                }
-
             } catch (error) {
                 console.error("Fetch error:", error);
             }
@@ -41,9 +35,10 @@ export default function Achieve() {
     // Set default
     const studyHours = userInfo.studiedHour || { daily: 0, weekly: 0, monthly: 0 };
     const achievement = userInfo.studied || [];
+
     return (
         <>
-            <Header navigation />
+        <Header navigation />
             <div className="learningHour">
                 <span className="learningtime">Learning hour</span>
                 <span className="today">{todayDate}</span>
@@ -82,13 +77,6 @@ export default function Achieve() {
                     </div>
                 ))}
             </div>
-
-            {isGoalReached && (
-                <div>
-                    <p>Congratulations! You've achieved your weekly study goal!</p>
-                </div>
-            )}
-
         </>
     );
 }
