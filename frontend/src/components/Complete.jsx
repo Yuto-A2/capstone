@@ -7,6 +7,7 @@ export default function Complete() {
     const studied = useRef();
     const studiedHour = useRef();
     const category = useRef();
+    const studyNote = useRef();
     const { user } = useContext(AuthContext);
 
     // Error if user is null
@@ -36,6 +37,7 @@ export default function Complete() {
                 jlptHour: 0,
                 total: studiedHourValue
             },
+            studyNote: user.studyNote,
         };
 
         try {
@@ -61,7 +63,7 @@ export default function Complete() {
                         <p className="explanation">When did you study?</p>
                     </div>
                     <div className="trackGoalContainer">
-                        <input name="trackGoalForm" className="trackGoalForm" type="date" ref={studyDate} />
+                        <input name="trackGoalForm" className="trackGoalForm" type="date" ref={studyDate} required/>
                     </div>
                 </div>
 
@@ -72,7 +74,7 @@ export default function Complete() {
                         <p className="explanation">(You can add up to five items)</p>
                     </div>
                     <div className="trackStudyContainer">
-                        <input name="trackStudyForm" className="trackStudyForm" type="text" placeholder="(ex) textp.10 - 15" ref={studied} />
+                        <input name="trackStudyForm" className="trackStudyForm" type="text" placeholder="(ex) textp.10 - 15" ref={studied} required/>
                     </div>
                 </div>
 
@@ -82,7 +84,7 @@ export default function Complete() {
                         <p className="explanation">Category</p>
                     </div>
                     <div className="setCategoryContainer">
-                        <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) grammar" ref={category} />
+                        <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) grammar" ref={category} required/>
                     </div>
                 </div>
 
@@ -92,7 +94,17 @@ export default function Complete() {
                         <p className="explanation">How many hours did you study?</p>
                     </div>
                     <div className="trackStudyHourContainer">
-                        <input name="trackStudyHourForm" className="trackStudyHourForm" type="number" placeholder="(ex) 5" ref={studiedHour} />
+                        <input name="trackStudyHourForm" className="trackStudyHourForm" type="number" placeholder="(ex) 5" ref={studiedHour} required/>
+                    </div>
+                </div>
+
+                   {/* track category */}
+                   <div className="categoryWrapper">
+                    <div className="trackCategory">
+                        <p className="explanation">You can put here what you learned.</p>
+                    </div>
+                    <div className="setCategoryContainer">
+                        <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) study note" ref={studyNote} />
                     </div>
                 </div>
 

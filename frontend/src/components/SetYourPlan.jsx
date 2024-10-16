@@ -60,6 +60,7 @@ export default function SetYourPlan() {
     } catch (err) {
       console.log("Error while updating goal:", err);  
     }
+    
   };
 
 
@@ -74,7 +75,7 @@ export default function SetYourPlan() {
             <p className="explanation">(You can add up to five items)</p>
           </div>{/* setGoal */}
           <div className="setGoalContainer">
-            <input name="setGoalForm" className="setGoalForm" type="text" placeholder="(ex) textp.10 - 15" />
+            <input name="setGoalForm" className="setGoalForm" type="text" placeholder="(ex) textp.10 - 15" required/>
           </div>{/* setGoalContainer */}
         </div>{/* setGoalWrapper */}
 
@@ -94,7 +95,7 @@ export default function SetYourPlan() {
             <p className="explanation">How many hours do you want to learn in this week?</p>
           </div>{/* setTime */}
           <div className="setTimeContainer">
-            <input name="setTimeForm" className="setTimeForm" type="text" placeholder="(ex) 20" ref={studyHour} />
+            <input name="setTimeForm" className="setTimeForm" type="text" placeholder="(ex) 20" ref={studyHour} required />
           </div>{/* setTimeContainer */}
         </div>{/* setTimeWrapper */}
 
@@ -105,7 +106,7 @@ export default function SetYourPlan() {
             <p className="explanation">(title) </p>
           </div>{/* setHomeworkTitle */}
           <div className="setHomeworkTitleContainer">
-            <input name="setHomeworkTitleForm" className="setHomeworkTitleForm" type="text" placeholder="(ex) text.100 - 101" ref={homeworkTitle} />
+            <input name="setHomeworkTitleForm" className="setHomeworkTitleForm" type="text" placeholder="(ex) text.100 - 101" ref={homeworkTitle} required/>
           </div>{/* setHomeworkTitleContainer */}
         </div>{/* setHomeworkTitleWrapper */}
 
@@ -116,7 +117,7 @@ export default function SetYourPlan() {
             <p className="explanation">(description) </p>
           </div>{/* setHomeworkDsc */}
           <div className="setHomeworkDscContainer">
-            <input name="HomeworkDsc" className="HomeworkDscForm" type="text" placeholder="(ex) Grammar practice." ref={homeworkDsc} />
+            <input name="HomeworkDsc" className="HomeworkDscForm" type="text" placeholder="(ex) Grammar practice." ref={homeworkDsc} required/>
             <button className="btn" type="submit">Submit</button>
           </div>{/* setHomeworkDscContainer */}
         </div > {/* setHomeworkDscWrapper */}
