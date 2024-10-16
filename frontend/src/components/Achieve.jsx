@@ -83,13 +83,6 @@ export default function Achieve() {
                 ))}
             </div>
 
-            {/* study note */}
-            <div className="studyThisWeekContainer">
-                <div className="studyThisWeekItems">
-                    <p className="studiedDate">{userInfo.studyNote}</p>
-                </div>
-            </div>
-
             {isGoalReached && (
                 <div>
                     <p>Congratulations! You've achieved your weekly study goal!</p>
