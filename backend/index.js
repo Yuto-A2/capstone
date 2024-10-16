@@ -330,25 +330,25 @@ async function getUserAchievments(userId) {
 }
 
 // get user information by query
-app.get("/", async (req, res) => {
-    const userId = req.query.userId;
-    const userName = req.query.userName;
-    const User = await new User ({
-        userId: req.params.userId,
-        userName: req.body.userName,
-        email: req.body.email,
-        password: req.body.password,
-    })
-    try {
-      const user = userId
-        ? await User.findById(userId)
-        : await User.findOne({ userName: userName });
-      const { password, ...other } = user._doc;
-      return res.status(200).json(other);
-    } catch (err) {
-      return res.status(500).json(err);
-    }
-  });
+// app.get("/", async (req, res) => {
+//     const userId = req.query.userId;
+//     const userName = req.query.userName;
+//     const User = await new User ({
+//         userId: req.params.userId,
+//         userName: req.body.userName,
+//         email: req.body.email,
+//         password: req.body.password,
+//     })
+//     try {
+//       const user = userId
+//         ? await User.findById(userId)
+//         : await User.findOne({ userName: userName });
+//       const { password, ...other } = user._doc;
+//       return res.status(200).json(other);
+//     } catch (err) {
+//       return res.status(500).json(err);
+//     }
+//   });
 
 // Add user's information to login
 app.post("/login", async (req, res) => {
