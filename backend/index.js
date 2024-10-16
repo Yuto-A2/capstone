@@ -7,7 +7,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 // setting of database
 const { MongoClient, ObjectId } = require("mongodb");
-const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}/?retryWrites=true&w=majority&appName=My-learning-plan`;
+// const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}/?retryWrites=true&w=majority&appName=My-learning-plan`;
+const dbUrl = "mongodb+srv://temothy101629:KYIvGsFHQ6emEHT0@my-learning-plan.rzopx.mongodb.net/?retryWrites=true&w=majority&appName=My-learning-plan";
 const client = new MongoClient(dbUrl);
 const mongoose = require("mongoose");
 mongoose.connect(dbUrl).then(() => {
