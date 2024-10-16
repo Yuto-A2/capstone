@@ -213,9 +213,6 @@ app.post("/api/achievement/add/submit/:id", async (request, response) => {
     let studied = study;
     let studyDate = date;
 
-    // study note
-    let studyNote = studyNote;
-
     // input information
     let setUsers = {
         userName: userName,
@@ -235,7 +232,6 @@ app.post("/api/achievement/add/submit/:id", async (request, response) => {
             jlptHour: jlptHour,
             total: totalHour,
         },
-        studyNote: studyNote,
     };
 
     // add or update the user based on their ID
@@ -250,7 +246,6 @@ async function updateAchievementById(userId, userInfo) {
             $push: { 
                 studied: userInfo.studied[0],
                 category: { $each: userInfo.category }, 
-                studyNote: studyNote,
                 // studyHours: userInfo.studyHours,  
             },
             $set: { 

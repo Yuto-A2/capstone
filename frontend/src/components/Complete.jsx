@@ -7,7 +7,6 @@ export default function Complete() {
     const studied = useRef();
     const studiedHour = useRef();
     const category = useRef();
-    const studyNote = useRef();
     const { user } = useContext(AuthContext);
 
     // Error if user is null
@@ -37,7 +36,6 @@ export default function Complete() {
                 jlptHour: 0,
                 total: studiedHourValue
             },
-            studyNote: user.studyNote,
         };
 
         try {
@@ -95,16 +93,6 @@ export default function Complete() {
                     </div>
                     <div className="trackStudyHourContainer">
                         <input name="trackStudyHourForm" className="trackStudyHourForm" type="number" placeholder="(ex) 5" ref={studiedHour} required/>
-                    </div>
-                </div>
-
-                   {/* track category */}
-                   <div className="categoryWrapper">
-                    <div className="trackCategory">
-                        <p className="explanation">You can put here what you learned.</p>
-                    </div>
-                    <div className="setCategoryContainer">
-                        <input name="setCategoryForm" className="setCategoryForm" type="text" placeholder="(ex) study note" ref={studyNote} />
                     </div>
                 </div>
 
