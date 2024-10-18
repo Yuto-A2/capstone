@@ -40,7 +40,7 @@ export default function Complete() {
 
         try {
             // Send the POST request to update the achievement
-            //await axios.post(`http://localhost:8888/api/achievement/add/submit/${user._id}`, achievement, {
+            // await axios.post(`http://localhost:8888/api/achievement/add/submit/${user._id}`, achievement, {
             await axios.post(`https://capstone-backend-ecru-tau.vercel.app/api/achievement/add/submit/${user._id}`, achievement, {
                 headers: {
                     "Content-Type": "application/json",

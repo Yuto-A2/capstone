@@ -51,7 +51,8 @@ export default function SetYourPlan() {
     try {
       
       // await axios.post(`http://localhost:8888/api/users/add/submit/${user._id}`
-      await axios.post(`https://capstone-backend-ecru-tau.vercel.app/api/users/add/submit/${user._id}`, newGoal, {
+      await axios.post(`https://capstone-backend-ecru-tau.vercel.app/api/users/add/submit/${user._id}`
+        , newGoal, {
         headers: {
           "Content-Type": "application/json",  
         },

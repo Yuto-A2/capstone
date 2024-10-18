@@ -44,12 +44,12 @@ async function getloginInfo() {
 //user's information add to sign up.
 app.post("/api/users/add/submit", async (request, response) => {
     // user information
-    let userName = request.body.userName;  
-    let email = request.body.email;        
-    let password = request.body.password;  
-    let profilePic = request.body.profilePic; 
+    let userName = request.body.userName;
+    let email = request.body.email;
+    let password = request.body.password;
+    let profilePic = request.body.profilePic;
 
-    
+
     // // set goal
     // let studyHours = request.body.studyHours; 
     // let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
@@ -99,26 +99,26 @@ app.post("/api/users/add/submit", async (request, response) => {
 })
 
 async function addUser(userInfo) {
-    const db = await connection(); 
+    const db = await connection();
     var status = await db.collection("userInfo").updateOne(
-        { userName: userInfo.userName }, 
+        { userName: userInfo.userName },
         {
             // $push: { 
             //     studied: userInfo.studied[0],
             //     category: { $each: userInfo.category },
             //     homework: userInfo.homework[0],  
             // },
-            $set: { 
-                userName: userInfo.userName,  
-                email: userInfo.email, 
-                profilePic: userInfo.profilePic,  
-                password: userInfo.password,  
+            $set: {
+                userName: userInfo.userName,
+                email: userInfo.email,
+                profilePic: userInfo.profilePic,
+                password: userInfo.password,
                 // studyHours: userInfo.studyHours,  
                 // planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
                 // studiedHour: userInfo.studiedHour,  
             }
         },
-        { upsert: true }  
+        { upsert: true }
     );
 
     console.log("UserInformation updated");
@@ -129,18 +129,18 @@ app.post("/api/users/add/submit/:id", async (request, response) => {
     let userId = request.params.id;
 
     // user information
-    let userName = request.body.userName;  
-    let email = request.body.email;        
-    let password = request.body.password;  
-    let profilePic = request.body.profilePic; 
-    
+    let userName = request.body.userName;
+    let email = request.body.email;
+    let password = request.body.password;
+    let profilePic = request.body.profilePic;
+
     // set goal
     // let studyHours = request.body.studyHours; 
     let { homeworkTitle, homeworkDsc } = request.body.homework[0];
     let homeworktitle = homeworkTitle;
     let homeworkdsc = homeworkDsc;
-    let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
-    let category = request.body.category;  
+    let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour;
+    let category = request.body.category;
 
     // input information
     let setUsers = {
@@ -162,24 +162,24 @@ app.post("/api/users/add/submit/:id", async (request, response) => {
 });
 
 async function updateUserById(userId, userInfo) {
-    const db = await connection(); 
+    const db = await connection();
     var status = await db.collection("StudyGoal").updateOne(
-        { _id: userId },  
+        { _id: userId },
         {
-            $push: { 
+            $push: {
                 category: { $each: userInfo.category },
-                homework: userInfo.homework[0]  
+                homework: userInfo.homework[0]
             },
-            $set: { 
-                userName: userInfo.userName,  
-                email: userInfo.email, 
-                profilePic: userInfo.profilePic,  
-                password: userInfo.password,  
-                planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
+            $set: {
+                userName: userInfo.userName,
+                email: userInfo.email,
+                profilePic: userInfo.profilePic,
+                password: userInfo.password,
+                planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour,
                 // studiedHour: userInfo.studiedHour,  
             }
         },
-        { upsert: true }  
+        { upsert: true }
     );
 
     console.log("User information updated");
@@ -190,25 +190,39 @@ app.post("/api/achievement/add/submit/:id", async (request, response) => {
     let userId = request.params.id;
 
     // user information
-    let userName = request.body.userName;  
-    let email = request.body.email;        
-    let password = request.body.password;  
-    let profilePic = request.body.profilePic; 
-    
+    let userName = request.body.userName;
+    let email = request.body.email;
+    let password = request.body.password;
+    let profilePic = request.body.profilePic;
+
     // set goal
     // let studyHours = request.body.studyHours; 
-    let category = request.body.category;  
+    let category = request.body.category;
 
     // achievement
-    let { daily, weekly, monthly, jlpt, total } = request.body.studiedHour;
+    let { daily, jlpt } = request.body.studiedHour;
     let dailyHour = daily;
-    let weeklyHour = weekly;
-    let monthlyHour = monthly;
     let jlptHour = jlpt;
-    let totalHour = total;
 
+    const user = await db.collection("StudyGoal").findOne({ _id: userId });
+
+    if (!user.studiedHour) {
+        user.studiedHour = {
+            weekly: 0,
+            monthly: 0,
+            jlptHour: 0,
+            total: 0
+        };
+    }
+    let currentWeeklyHour = user ? user.studiedHour.weekly : 0;
+    let newWeeklyHour = currentWeeklyHour += dailyHour;
+    let monthly = user ? user.studiedHour.monthly : 0 
+    let newMonthlyHour = monthly += dailyHour;
+    let total = user ? user.studiedHour.monthly : 0 
+    let totalHour = total += dailyHour;
+    
     // studying array
-    let { study, date } = request.body.studied[0];  
+    let { study, date } = request.body.studied[0];
     let studied = study;
     let studyDate = date;
 
@@ -226,36 +240,48 @@ app.post("/api/achievement/add/submit/:id", async (request, response) => {
         }],
         studiedHour: {
             daily: dailyHour,
-            weekly: weeklyHour,
-            monthly: monthlyHour,
+            weekly: newWeeklyHour,
+            monthly: newMonthlyHour,
             jlptHour: jlptHour,
             total: totalHour,
         },
     };
+    const today = new Date (); //today
+    const currentDay = today.getDay(); //date
+    const currentMonth = today.getMonth(); //month
+
+    if (currentDay === 1) {
+        user.studiedHour.weekly = 0;
+    } //reset hours every Monday
+
+
+    if (currentMonth === 1) {
+        user.studiedHour.monthly = 0;
+    } //reset hours every first of the month
 
     // add or update the user based on their ID
     await updateAchievementById(userId, setUsers);
 });
 
 async function updateAchievementById(userId, userInfo) {
-    const db = await connection(); 
+    const db = await connection();
     var status = await db.collection("StudyGoal").updateOne(
-        { _id: userId },  
+        { _id: userId },
         {
-            $push: { 
+            $push: {
                 studied: userInfo.studied[0],
-                category: { $each: userInfo.category }, 
+                category: { $each: userInfo.category },
                 // studyHours: userInfo.studyHours,  
             },
-            $set: { 
-                userName: userInfo.userName,  
-                email: userInfo.email, 
-                profilePic: userInfo.profilePic,  
-                password: userInfo.password,  
-                studiedHour: userInfo.studiedHour,  
+            $set: {
+                userName: userInfo.userName,
+                email: userInfo.email,
+                profilePic: userInfo.profilePic,
+                password: userInfo.password,
+                studiedHour: userInfo.studiedHour,
             }
         },
-        { upsert: true }  
+        { upsert: true }
     );
 
     console.log("User information updated");
@@ -278,7 +304,7 @@ app.get("/YourProgress/:id", async (req, res) => {
 
 async function getSingleLink(id) {
     const db = await connection();
-    const editId = { _id: id };  
+    const editId = { _id: id };
     const result = await db.collection("StudyGoal").findOne(editId);
     return result;
 }
@@ -291,7 +317,7 @@ app.get("/goals/:goalId", async (req, res) => {
             return res.status(404).json({ error: "cannot find a goal." });
         }
         const { password, ...other } = userGoals;
-        res.status(200).json(other);  
+        res.status(200).json(other);
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: "Failed to get user's goals." });
@@ -300,21 +326,21 @@ app.get("/goals/:goalId", async (req, res) => {
 
 async function getUserGoals(goalId) {
     const db = await connection();
-    const editId = {  _id: new ObjectId(goalId) }; 
-    const result = await db.collection("StudyGoal").findOne(editId);  
+    const editId = { _id: new ObjectId(goalId) };
+    const result = await db.collection("StudyGoal").findOne(editId);
     return result;
 }
 
 // get user's achievement
 app.get("/achievement/:userId", async (req, res) => {
     try {
-        let userId = req.params.userId; 
+        let userId = req.params.userId;
         const userAchievment = await getUserAchievments(userId);
-        if (! userAchievment) {
+        if (!userAchievment) {
             return res.status(404).json({ error: "cannot find an achievement." });
         }
-        const { password, ...other } =  userAchievment;
-        res.status(200).json(other);  
+        const { password, ...other } = userAchievment;
+        res.status(200).json(other);
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: "Failed to get user's achievements." });
@@ -323,7 +349,7 @@ app.get("/achievement/:userId", async (req, res) => {
 
 async function getUserAchievments(userId) {
     const db = await connection();
-    const editId = { userId: userId }; 
+    const editId = { userId: userId };
     const result = await db.collection("AchievedStudy").findOne(editId);  // `StudyGoal` コレクションから取得
     return result;
 }
@@ -354,10 +380,10 @@ app.post("/login", async (req, res) => {
     try {
         const user = await getEmail(req.body.email); // get user name
         if (!user) return res.status(404).send("cannot find the user name");
-        
-        const validPassword = req.body.password === user.password; 
+
+        const validPassword = req.body.password === user.password;
         if (!validPassword) return res.status(400).json("Wrong password");
-        
+
         return res.status(200).json(user);
     } catch (err) {
         return res.status(500).json(err);

@@ -5,6 +5,7 @@ import "../components/Home.css"
 import "../components/Login.css"
 import "../components/Signup.css"
 import Header from "../components/Header"
+import { NavLink } from "react-router-dom";
 
 export default function Home() {
   const email = useRef();
@@ -30,7 +31,7 @@ export default function Home() {
           <label htmlFor="">Password:</label>
           <input name="password" className="password" type="password" required minLength="6" ref={password} />
           <button className="loginButton" type="submit">Log in</button>
-          <button className="signupButton" type="submit">Sign up</button>
+         <p> <NavLink to={`/SignUp`}>Here is sign up!</NavLink> </p>
         </form>
       </div>
     </>

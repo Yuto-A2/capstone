@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRef } from "react"
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // User name input.
 export default function Signup() {
@@ -58,6 +58,7 @@ export default function Signup() {
                     <label htmlFor="password">Confirm Password:</label>
                     <input name="confirmPsw" className="confirmPassword" type="password" required minLength="6" ref={passwordConfirmation} />
                     <button className="createButton" type="submit">Create an account</button>
+                    <p><NavLink to={`/`}>Login</NavLink></p>
                 </form>
             </div>
         </>
