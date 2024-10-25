@@ -47,17 +47,17 @@ export default function YourProgress() {
         <img src={userInfo.profilePic ? userInfo.profilePic : "/img/noAvatar.png"} alt="" className="userImg" />
         <span className="userName">{userInfo.userName}</span>
       </div>
-      <p className="studyHour">You’ve spent {studyHours.studiedHour.total} hours for learning Japanese.</p>
+      <p className="studyHour">You’ve spent {studiedHours.total} hours for learning Japanese.</p>
       <div className="progressContainer">
         <div className="totalStudied">
           <p className="requiredText">Required hours to acquire Japanese.</p>
           <p className="studyText">2200 hours</p>
-          <p className="studyText">You have studied {studyHours.studiedHour.total} hours.</p>
+          <p className="studyText">You have studied {studiedHours.total} hours.</p>
         </div>
         <div className="jlptRequired">
           <p className="requiredText">Required hours to pass JLPT N 5.</p>
           <p className="studyText">350 hours</p>
-          <p className="studyText">You have studied {studyHours.studiedHour.jlptHour} hours.</p>
+          <p className="studyText">You have studied {studiedHours.jlptHour} hours.</p>
         </div>
         <div className="goalOfWeek">
           <p className="requiredText">Your goal of this week.</p>
@@ -67,7 +67,7 @@ export default function YourProgress() {
               {study.study}
             </p>
           ))}
-          <p className="studyText">You have studied {userInfo.studiedHour.weekly} hours.</p>
+          <p className="studyText">You have studied {studiedHours.weekly} hours.</p>
         </div>
         <div className="homeworkOfWeek">
           <p className="requiredText">Your Homework this week.</p>
