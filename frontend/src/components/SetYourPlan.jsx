@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import "../components/SetYourPlan.css"
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -31,10 +31,10 @@ export default function SetYourPlan() {
   const homeworkTitle = useRef();
   const homeworkDsc = useRef();
   const { user } = useContext(AuthContext);
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     
     const newGoal = {
       userId: user._id,
@@ -58,6 +58,7 @@ export default function SetYourPlan() {
         },
       });
       console.log("Goal updated successfully");
+      setMessage("Your goal has been successfully submitted!");
     } catch (err) {
       console.log("Error while updating goal:", err);  
     }
@@ -123,6 +124,7 @@ export default function SetYourPlan() {
           </div>{/* setHomeworkDscContainer */}
         </div > {/* setHomeworkDscWrapper */}
       </form>
+      {message && <p className="completionMessage">{message}</p>}
     </>
   );
 }

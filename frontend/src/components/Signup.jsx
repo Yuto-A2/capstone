@@ -19,23 +19,6 @@ export default function Signup() {
                     userName: username.current.value,
                     email: email.current.value,
                     password: password.current.value,
-                    // category: [],  // Category (array)
-                    // studied: [{
-                    //     study: "",  // Study detail
-                    //     date: ""   // Study date
-                    // }],
-                    // studiedHour: {
-                    //     daily: 0,
-                    //     weekly: 0,
-                    //     monthly: 0,
-                    //     jlptHour: 0,
-                    //     total: 0,
-                    // },
-                    // homework: [{
-                    //     homeworkTitle: "",
-                    //     homeworkDsc: ""
-                    // }],
-                    // planOfWeeklyStudyHour: 0,
                 };
                 // await axios.post("http://localhost:8888/api/users/add/submit/", user);
                 await axios.post("https://capstone-backend-ecru-tau.vercel.app/api/users/add/submit/", user);
@@ -47,6 +30,7 @@ export default function Signup() {
     };
     return (
         <>
+            <p>Please go to Login page after you create an acoount.</p>
             <div className="userNameContainer">
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <label htmlFor="userName">User Name:</label>

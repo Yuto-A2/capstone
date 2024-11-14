@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import "../components/Acheive.css";
 import Header from "../components/Header";
 import { AuthContext } from "../state/AuthContext";
@@ -26,10 +26,11 @@ export default function Achieve() {
         };
         getGoalInfo();
     }, [id]);
-
-    // 
+ 
     if (!userInfo) {
-        return <p>Please set your study first...</p>;
+        return <><p>Please set your study first...</p>
+        <p><NavLink to={`/TrackMyProgress/${user._id}`}>Track your progress</NavLink></p>
+        </>;
     }
 
     // Set default

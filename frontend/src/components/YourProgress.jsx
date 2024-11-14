@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import "../components/YourProgress.css";
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import Header from "../components/Header";
 import { AuthContext } from "../state/AuthContext";
 
@@ -28,13 +28,11 @@ export default function YourProgress() {
     getloginInfo();
   }, [id]);
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   if (!userInfo) {
-    return <p>Please set your goal first...</p>;  
-  }
+    return <><p>Please set your study first...</p>
+    <p><NavLink to={`/SetYourPlan/${user._id}`}>Set Your Plan</NavLink></p>
+    </>;
+}
 
   // Set default values for studyHours and homework if not present in userInfo
   const studyHours = userInfo.studyHours || {
