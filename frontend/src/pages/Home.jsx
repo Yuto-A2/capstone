@@ -31,9 +31,9 @@ export default function Home() {
           <label htmlFor="">Password:</label>
           <input name="password" className="password" type="password" required minLength="6" ref={password} />
           <button className="loginButton" type="submit">Log in</button>
-         <p> <NavLink to={`/SignUp`}>Here is sign up!</NavLink> </p>
         </form>
       </div>
+      <p> <NavLink to={`/SignUp`}>Here is sign up!</NavLink> </p>
     </>
   )
 }
