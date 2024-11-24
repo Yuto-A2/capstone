@@ -11,6 +11,9 @@ export default function Signup() {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const submittedElement = document.getElementById("submitted");
+        submittedElement.innerHTML = "Account created successfully!<br>Please go to login page";
+        submittedElement.style.color = "green";
         if (password.current.value !== passwordConfirmation.current.value) {
             passwordConfirmation.current.setCustomValidity("Wrong password")
         } else {
@@ -45,6 +48,7 @@ export default function Signup() {
                     <p><NavLink to={`/`}>Login</NavLink></p>
                 </form>
             </div>
+            <p id="submitted"></p>
         </>
     )
 }
