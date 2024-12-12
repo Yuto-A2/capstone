@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../state/AuthContext";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Complete() {
     const studyDate = useRef();
@@ -8,6 +9,7 @@ export default function Complete() {
     const studiedHour = useRef();
     const category = useRef();
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     // Error if user is null
     if (!user) {
@@ -16,7 +18,9 @@ export default function Complete() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        const submittedElement = document.getElementById("submitted");
+        submittedElement.innerHTML = `Submitted successfully. Go to Your Progress page or Set Your Plan page.`;
+        submittedElement.style.color = "green";
         // studyhour from string to numer
         const studiedHourValue = parseFloat(studiedHour.current.value);
 
@@ -47,6 +51,8 @@ export default function Complete() {
                 },
             });
             console.log("Achievement updated successfully");
+            console.log(user._id); 
+            navigate(`/YourProgress/${user._id}`);
         } catch (err) {
             console.log("Error while updating achievement:", err);
         }
@@ -92,7 +98,7 @@ export default function Complete() {
                         <p className="explanation">How many hours did you study?</p>
                     </div>
                     <div className="trackStudyHourContainer">
-                        <input name="trackStudyHourForm" className="trackStudyHourForm" type="number" placeholder="(ex) 5" ref={studiedHour} required/>
+                        <input name="trackStudyHourForm" className="trackStudyHourForm" type="number" placeholder="(ex) 5" min='0' max='24' ref={studiedHour} required/>
                     </div>
                 </div>
 
@@ -103,6 +109,7 @@ export default function Complete() {
                     </div>
                 </div>
             </form>
+            <p id="submitted"></p>
         </>
     );
 }

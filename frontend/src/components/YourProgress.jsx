@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import "../components/YourProgress.css";
 import { NavLink, useParams } from 'react-router-dom';
 import Header from "../components/Header";
+import Nav from "../components/Nav";
 import { AuthContext } from "../state/AuthContext";
 
 export default function YourProgress() {
@@ -13,8 +14,8 @@ export default function YourProgress() {
   useEffect(() => {
     const getloginInfo = async () => {
       try {
-        // let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
-        let response = await fetch(`https://capstone-backend-ecru-tau.vercel.app/YourProgress/${id}`);
+        let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
+        // let response = await fetch(`https://capstone-backend-ecru-tau.vercel.app/YourProgress/${id}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -35,7 +36,7 @@ export default function YourProgress() {
 }
 
   // Set default values for studyHours and homework if not present in userInfo
-  const studyHours = userInfo.studyHours || {
+  const studyHours = userInfo.studiedHour || {
     total: 0, 
     jlpt: 0, 
     weekly: 0 
@@ -45,6 +46,10 @@ export default function YourProgress() {
   return (
     <>
       <Header navigation />
+      <Nav />
+      <h2 className="header2">Your Progress</h2>
+      <p>Your hours you have studied.</p>
+      <p className="marginBottom">The content you want to work on this week.</p>
       <div className="userContainer">
         <img src={userInfo.profilePic ? userInfo.profilePic : "/img/noAvatar.png"} alt="" className="userImg" />
         <span className="userName">{userInfo.userName}</span>
@@ -91,3 +96,4 @@ export default function YourProgress() {
     </>
   );
 }
+ 

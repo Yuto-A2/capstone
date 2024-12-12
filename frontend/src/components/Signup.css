@@ -13,3 +13,28 @@
     cursor: pointer;
     background: pink;
 }
+
+
+.signPageContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+.signupLetter {
+    font-weight: bold;
+    margin-right: 50px;
+}
+
+.signupPageBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.signupExplanation1 {
+    margin-bottom: 1px;
+}
+
+.signupExplanation2 {
+    margin-top: 1px;
+}

@@ -1,11 +1,10 @@
-import Nav from "./Nav"
 
 export default function Header({ navigation }) {
-  const LoginSignUp = () => {
-    return (
-      <header></header>
-    )
-  }
+  // const LoginSignUp = () => {
+  //   return (
+  //     <header></header>
+  //   )
+  // }
 
   const OtherPages = () => {
     return (
@@ -15,7 +14,6 @@ export default function Header({ navigation }) {
             <a href="/">J-Goal</a>
           </h1>
         </div> {/* titleBox */}
-        <Nav />
       </header>
     );
   }

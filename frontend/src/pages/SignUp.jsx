@@ -9,9 +9,8 @@ export default function SignUp() {
   }, []);
   return (
     <>
-      <Header />
+       <Header navigation/>
       <main id="main">
-        <h2 className="header2">Sign Up</h2>
         <div className="inputContainer">
           <Signup />
         </div>

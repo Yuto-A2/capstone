@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { NavLink, useParams } from 'react-router-dom';
 import "../components/Acheive.css";
 import Header from "../components/Header";
+import Nav from "../components/Nav";
 import { AuthContext } from "../state/AuthContext";
 
 export default function Achieve() {
@@ -26,20 +27,25 @@ export default function Achieve() {
         };
         getGoalInfo();
     }, [id]);
- 
+
     if (!userInfo) {
         return <><p>Please set your study first...</p>
-        <p><NavLink to={`/TrackMyProgress/${user._id}`}>Track your progress</NavLink></p>
+            <p><NavLink to={`/TrackMyProgress/${user._id}`}>Track your progress</NavLink></p>
         </>;
     }
 
     // Set default
     const studyHours = userInfo.studiedHour || { daily: 0, weekly: 0, monthly: 0 };
     const achievement = userInfo.studied || [];
+    const categories = userInfo.category || [];
 
     return (
         <>
-        <Header navigation />
+            <Header navigation />
+            <Nav />
+            <h2>Acheivement</h2>
+            <p>The hours you have studied.</p>
+            <p className="marginBottom">The contents of what you have done.</p>
             <div className="learningHour">
                 <span className="learningtime">Learning hour</span>
                 <span className="today">{todayDate}</span>
@@ -65,8 +71,11 @@ export default function Achieve() {
             <div className="categoryList">
                 <p className="categoryText">Category</p>
                 <select name="studyCategory" id="studyCategory" className="options">
-                    <option value="grammar" className="option">Grammar</option>
-                    <option value="reading" className="option">Reading</option>
+                    {categories.map((category, index) => (
+                        <option key={index} value={category} className="option">
+                            {category}
+                        </option>
+                    ))}
                 </select>
             </div>
 

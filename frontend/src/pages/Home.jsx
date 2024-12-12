@@ -23,7 +23,20 @@ export default function Home() {
   console.log(user)
   return (
     <>
-    <Header />
+      <Header navigation />
+      <div class="explanation">
+        <div class="jGoalBox">
+          <p class="explaneJGoal">What is J-Goal?</p>
+        </div>{/* /div class="jGoalBox" */}
+        <div class="explanationBox">
+          <p class="explaneJGoal1">
+            J-Goal is a learning plan app.
+          </p>
+          <p class="explaneJGoal2">
+            Log in or sign up to track your progress.
+          </p>
+        </div>{/* /div class="explanationBox" */}
+      </div>{/* /div class="explanation" */}
       <div className="Login">
         <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="">Email:</label>

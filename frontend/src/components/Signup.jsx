@@ -33,6 +33,14 @@ export default function Signup() {
     };
     return (
         <>
+        <div class="signPageContainer">
+            <p class="signupLetter">Sign up</p>
+            <div class="signupPageBox">
+                <p class="signupExplanation1">If you log in, you can track your progress.</p>
+                <p class="signupExplanation2">That will help you plan your study.</p>
+            </div>{/* /div class="signupPageBox"  */}
+        </div>{/* /div class="signupPageContainer" */}
+
             <p>Please go to Login page after you create an acoount.</p>
             <div className="userNameContainer">
                 <form onSubmit={(e) => handleSubmit(e)}>

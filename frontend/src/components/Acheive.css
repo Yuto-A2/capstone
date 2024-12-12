@@ -73,3 +73,7 @@ td, th {
 .studyText {
     font-size: 16px;
 }
+
+.marginBottom {
+    margin-bottom: 30px;
+}

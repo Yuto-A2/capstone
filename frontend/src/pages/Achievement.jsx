@@ -1,5 +1,4 @@
 import Achievement from "../components/Achieve"
-import Header from "../components/Header"
 import "../components/Acheive.css"
 import { useEffect } from "react"
 export default function Acheivement() {
@@ -8,7 +7,6 @@ export default function Acheivement() {
     }, []);
   return (
     <>
-    <Header navigation />
     <div>
       <Achievement />
     </div>

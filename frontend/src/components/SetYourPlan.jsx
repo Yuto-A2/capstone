@@ -5,26 +5,6 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../state/AuthContext";
 
 export default function SetYourPlan() {
-  // const { id } = useParams();
-  // const [userInfo, setUserInfo] = useState(null); 
-  // const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   const getloginInfo = async () => {
-  //     try {
-  //       let response = await fetch(`http://localhost:8888/YourProgress/${id}`);
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       let data = await response.json();
-  //       setUserInfo(data);
-  //     } catch (error) {
-  //       setError(error.message);
-  //       console.error("Fetch error:", error);
-  //     }
-  //   }
-  //   getloginInfo();
-  // }, [id]);
 
   const category = useRef();
   const studyHour = useRef();
@@ -35,7 +15,9 @@ export default function SetYourPlan() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    const submittedElement = document.getElementById("submitted");
+    submittedElement.innerHTML = `Submitted successfully. Go to Your Progress page or Track Your Progress page.`;
+    submittedElement.style.color = "green";
     const newGoal = {
       userId: user._id,
       category: [category.current.value],
@@ -97,7 +79,7 @@ export default function SetYourPlan() {
             <p className="explanation">How many hours do you want to learn in this week?</p>
           </div>{/* setTime */}
           <div className="setTimeContainer">
-            <input name="setTimeForm" className="setTimeForm" type="text" placeholder="(ex) 20" ref={studyHour} required />
+            <input name="setTimeForm" className="setTimeForm" type="number" placeholder="(ex) 20" ref={studyHour} min='0' max='168' required />
           </div>{/* setTimeContainer */}
         </div>{/* setTimeWrapper */}
 
@@ -124,7 +106,7 @@ export default function SetYourPlan() {
           </div>{/* setHomeworkDscContainer */}
         </div > {/* setHomeworkDscWrapper */}
       </form>
-      {message && <p className="completionMessage">{message}</p>}
+      <p id="submitted"></p>
     </>
   );
 }

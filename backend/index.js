@@ -49,51 +49,12 @@ app.post("/api/users/add/submit", async (request, response) => {
     let password = request.body.password;
     let profilePic = request.body.profilePic;
 
-
-    // // set goal
-    // let studyHours = request.body.studyHours; 
-    // let planOfWeeklyStudyHour = request.body.planOfWeeklyStudyHour; 
-    // let { homeworkTitle, homeworkDsc } = request.body.homework[0];
-    // let homeworktitle = homeworkTitle;
-    // let homeworkdsc = homeworkDsc;
-    // let category = request.body.category;  
-
-    // //achievement
-    // let { daily, weekly, monthly, jlpt, total } = request.body.studiedHour;
-    // let dailyHour = daily;
-    // let weeklyHour = weekly;
-    // let monthlyHour = monthly;
-    // let jlptHour = jlpt;
-    // let totalHour = total;
-    // // studying array
-    // let { study, date } = request.body.studied[0];  
-    // let studied = study;
-    // let studyDate = date;
-
     // input information
     let setUsers = {
         userName: userName,
         email: email,
         password: password,
         profilePic: profilePic,
-        // studyHours: studyHours,
-        // homework: [{
-        //     homeworkTitle: homeworktitle,
-        //     homeworkDsc: homeworkdsc
-        // }],
-        // planOfWeeklyStudyHour: planOfWeeklyStudyHour,
-        // category: category,
-        // studied: [{
-        //     study: studied,
-        //     date: studyDate
-        // }],
-        // studiedHour: {
-        //     daily: dailyHour,
-        //     weekly: weeklyHour,
-        //     monthly: monthlyHour,
-        //     jlptHour: jlptHour,
-        //     total: totalHour,
-        // },
     }
     await addUser(setUsers);
 })
@@ -103,19 +64,11 @@ async function addUser(userInfo) {
     var status = await db.collection("userInfo").updateOne(
         { userName: userInfo.userName },
         {
-            // $push: { 
-            //     studied: userInfo.studied[0],
-            //     category: { $each: userInfo.category },
-            //     homework: userInfo.homework[0],  
-            // },
             $set: {
                 userName: userInfo.userName,
                 email: userInfo.email,
                 profilePic: userInfo.profilePic,
-                password: userInfo.password,
-                // studyHours: userInfo.studyHours,  
-                // planOfWeeklyStudyHour: userInfo.planOfWeeklyStudyHour, 
-                // studiedHour: userInfo.studiedHour,  
+                password: userInfo.password, 
             }
         },
         { upsert: true }
@@ -353,27 +306,6 @@ async function getUserAchievments(userId) {
     const result = await db.collection("AchievedStudy").findOne(editId);  // `StudyGoal` コレクションから取得
     return result;
 }
-
-// get user information by query
-// app.get("/", async (req, res) => {
-//     const userId = req.query.userId;
-//     const userName = req.query.userName;
-//     const User = await new User ({
-//         userId: req.params.userId,
-//         userName: req.body.userName,
-//         email: req.body.email,
-//         password: req.body.password,
-//     })
-//     try {
-//       const user = userId
-//         ? await User.findById(userId)
-//         : await User.findOne({ userName: userName });
-//       const { password, ...other } = user._doc;
-//       return res.status(200).json(other);
-//     } catch (err) {
-//       return res.status(500).json(err);
-//     }
-//   });
 
 // Add user's information to login
 app.post("/login", async (req, res) => {
