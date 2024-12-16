@@ -43,8 +43,11 @@ export default function Home() {
           <input name="email" className="nameForm" type="email" required ref={email} />
           <label htmlFor="">Password:</label>
           <input name="password" className="password" type="password" required minLength="6" ref={password} />
-          <button className="loginButton" type="submit">Log in</button>
+          <button className="loginButton" type="submit" disabled={isFetching}>Log in
+          {isFetching ? "Logging in..." : "Log in"}
+          </button>
         </form>
+        {error && <p className="errorMessage">Invalid email or password. Please try again.</p>}
       </div>
       <p> <NavLink to={`/SignUp`}>Here is sign up!</NavLink> </p>
     </>
