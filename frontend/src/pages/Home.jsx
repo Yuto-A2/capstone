@@ -44,7 +44,6 @@ export default function Home() {
           <label htmlFor="">Password:</label>
           <input name="password" className="password" type="password" required minLength="6" ref={password} />
           <button className="loginButton" type="submit" disabled={isFetching}>Log in
-          {isFetching ? "Logging in..." : "Log in"}
           </button>
         </form>
         {error && <p className="errorMessage">Invalid email or password. Please try again.</p>}
